@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Samut Sakhon — Collection Ledger (Live)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0">
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIlNhbXV0IFNha2hvbiBDb2xsZWN0aW9uIExlZGdlciIsICJzaG9ydF9uYW1lIjogIkNvbGxlY3Rpb24iLCAiZGVzY3JpcHRpb24iOiAiTGl2ZSBicmFuY2ggY29sbGVjdGlvbiBkYXNoYm9hcmQgXHUyMDE0IFNhbXV0IFNha2hvbiBwcm92aW5jZSIsICJzdGFydF91cmwiOiAiLiIsICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLCAiYmFja2dyb3VuZF9jb2xvciI6ICIjRjNGMUVBIiwgInRoZW1lX2NvbG9yIjogIiMxMDFCMzMiLCAib3JpZW50YXRpb24iOiAicG9ydHJhaXQtcHJpbWFyeSIsICJpY29ucyI6IFt7InNyYyI6ICJkYXRhOmltYWdlL3BuZztiYXNlNjQsaVZCT1J3MEtHZ29BQUFBTlNVaEVVZ0FBQU1BQUFBREFDQVlBQUFCUzNHd0hBQUFFTzBsRVFWUjRuTzNiUFZMYlFBQ0dZZG1UbVpTaDV4alUxRGtPWi9GeFVsTnpESG9vVTVIS21mellXTkt1dEZwOXo5UGJ5SlB2OWNyZ0hJYU51YnQvK0doOURTenI3ZlhsMFBvYXpwcGVpTEZ6MWlxSzFYK28wWFBMbWpHczlvTU1uNm5XQ0dIeEgyRDRsRm95aE1XZTJQQ3BiWWtRcWoraDRiTzBtaUVjYXozUk1CZy82Nmk1c3lvbEdUNnRsSjRHeFNlQThkTlM2ZjZLQWpCK3RxQmtoN01ETUg2MlpPNGVad1ZnL0d6Um5GMU9Ec0Q0MmJLcCs1d1VnUEhUZ3lrN0hSMkE4ZE9Uc1hzZEZZRHgwNk14dTcwWmdQSFRzMXY3cmZwVkNPak5wMzlHOXU2L2JkK2VIbWM5N3YzMFhQbEt0dS9hVnlhdW5nREd2MjF6eDEvNjJGNWQyN05ib0E3VkdIQmlCSmRjRE1DNy8zYlZIRzVhQkpkMjdRUWcybjhCZVBkbnovN2R0eE9BYUg4RjROMmZCSC91M0FsQXROOEJlUGNueVhudlRnQ2lDWUJveDJGdyswT211L3VIRHljQTBRUkFOQUVRVFFCRU8vb0FUREluQU5FRVFEUUJFRTBBUkJNQTBRUkFOQUVRVFFCRUV3RFJCRUEwQVJCTkFFUVRBTkcrdEw2QTN2MTQram5yY2Q5UFh5dGZDWE00QVFyTUhYL3BZNmxIQURQVkdMQUkyaFBBRERXSEs0SzJCRUEwQVJCTkFFUVRBTkVFUURRQkVFMEFSUE5WQ0NiYjA5Yy9uQUJNc3JldmZ3aUEwZmI0OVE4Qk1NcGV2LzRoQUtJSmdHZ0NJSm9BaUNZQW9nbUFhQUlnbWdDSUpnQ2lDWUJvQWlDYUFJZ21BS0lKZ0dnQ0lKb0FpTGFML3hQODdlbHgxdVBlVDgrVnI0VGVkSDhDekIxLzZXUFpoNjREcURGZ0VXVHJOb0Nhd3hWQnJtNERnQm9FUURRQkVFMEFSQk1BMFFSQU5BRVFUUUJFRXdEUkJFQTBBUkJOQUVRVEFORUVRRFFCRUUwQVJCTUEwUVJBTkFFUVRRQkVFd0RSQkVBMEFSQk5BRVFUQU5FRVFEUUJFRTBBUkJNQTBRUkFOQUVRVFFCRUV3RFJCRUEwQVJCTkFFUVRBTkVFUURRQkVFMEFSQk1BMFFSQU5BRVFUUUJFRXdEUkJFQTBBUkJOQUVRVEFORUVRRFFCRUszYkFONVB6ODJlNi92cGE3V2ZQZlc1V3IzdWxxOTVTZDBHTUF4MXhqRDNPV3I4STg1OWpsYXZ1K1ZyWGtyWEFReEQyUmhLaDFUeWoxazZoRmF2dStWclhzTGg3djdoby9WRlFDdmRud0JRUWdCRUV3RFJCRUEwQVJCTkFFUVRBTkVFUURRQkVFMEFSQk1BMFFSQU5BRVFUUUJFRXdEUkJFQTBBUkR0K1BiNmNtaDlFZENLRTRCb0FpQ2FBSWdtQUtJZGgyRVlmQkFtMGR2cnk4RUpRRFFCRU8xM0FHNkRTSExldXhPQWFIOEY0QlFnd1o4N2R3SVE3YjhBbkFMczJiLzdkZ0lRN1dJQVRnSDI2Tkt1blFCRXV4cUFVNEE5dWJiblQwOEFFYkFIbiszWUxSRFJiZ2JnRktCbnQvWTc2Z1FRQVQwYXM5dlJ0MEFpb0Nkajl6cnBNNEFJNk1HVW5VNytFQ3dDdG16cVBtZjlGa2dFYk5HY1hjNytOYWdJMkpLNWV5ejZPNEFJMklLU0hSYi9JVXdFdEZTNnY2cmp2YnQvK0tqNWZIQk5yVGZlcWwrRmNCcXdocG83VzJ5d1RnTnFXK0lOZHZGM2JDRlFhc2s3aTlWdVdZVEFWR3ZjVXE5K3p5NEVibG56czJUVEQ2MWk0S3pWTDFCK0FTMElIQ240MnQzYkFBQUFBRWxGVGtTdVFtQ0MiLCAic2l6ZXMiOiAiMTkyeDE5MiIsICJ0eXBlIjogImltYWdlL3BuZyIsICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSJ9LCB7InNyYyI6ICJkYXRhOmltYWdlL3BuZztiYXNlNjQsaVZCT1J3MEtHZ29BQUFBTlNVaEVVZ0FBQWdBQUFBSUFDQVlBQUFEMGVOVDZBQUFPREVsRVFWUjRuTzNjUFpJVHl4YUYwV3FDQ0V6d0dRWTJOc1Bwc2ZSd3NMRVpCajZZV0R6amhTNml1dFg2eTZvOG1YdXRBVnhsbFRwMFBwM1M1V0docEE4ZlAvM3BmUWFBVm43KytQN1Erd3o4eXh2U2lRRVA4SmRBMko4YnZnUERIdUI2b21CYmJ1NEdESHlBOWdSQlcyNW1Bd1krd1A0RXdYM2N2QnNaK2dCMWlJSHJ1V0ZYTVBRQjZoTURsM0dUempEMEFjWWxCazV6WTA0dytBSG1JUVNlYzBPT0dQb0E4eE1ELytjbUxBWS9RS0wwRUlpK2VJTWZnTlFRaUx4b2d4K0F0YlFRaUxwWWd4K0FjMUpDSU9JaURYNEFyalY3Q0x6cGZZQ3RHZjRBM0dMMitURnQzY3oreGdHd254bTNBZE5ka01FUHdGWm1Db0dwSGdFWS9nQnNhYVk1TTBYSnpQU0dBRENHMGJjQncyOEFESDhBZWhoOS9nd2RBS1BmZkFER052SWNHbko5TWZJTkIyQk9vejBTR0c0RFlQZ0RVTkZvODJtb0FCanQ1Z0tRWmFRNU5jUzZZcVFiQ2dETFV2K1JRUGtOZ09FUHdJaXF6Ni9TQVZEOTVnSEFheXJQc2JJQlVQbW1BY0NscXM2emtnRlE5V1lCd0MwcXpyVnlBVkR4SmdIQXZhck50MUlCVU8zbUFFQkxsZVpjbVFDb2RGTUFZQ3RWNWwySkFLaHlNd0JnRHhYbVh2Y0FxSEFUQUdCdnZlZGYxd0RvZmZFQTBGUFBPZGd0QUF4L0FPZzNEN3NFZ09FUEFILzFtSXU3QjREaER3RFA3VDBmZHcwQXd4OEFUdHR6VHU0V0FJWS9BSnkzMTd6Y0pRQU1md0M0M0I1enMvdS9Bd0FBN0cvekFQRHRId0N1dC9YODNEUUFESDhBdU4yV2MzU3pBREQ4QWVCK1c4MVR2d0VBZ0VDYkJJQnYvd0RRemhaenRYa0FHUDRBMEY3citkbzBBQXgvQU5oT3l6bnJOd0FBRU9paDFYL0l0MzlnQys4ZlAzZDkvVjlQMzdxK1Byems1NC92ZDgvdkpnRmcrQU10OVI3NnA0Z0JLcmszQWp3Q0FFcXBPdnlYcGZiWjRGcDNid0I4K3dkYUdHMjQyZ1pRd1QxYkFCc0FvTHZSaHYreWpIbG1PSFpYQVBqMkR3RDkzRE9IYnc0QXd4OW9ZZVJ2MGlPZm5YbmNPbzg5QWdDNm1XR0F6bkFOWkxvcEFIejdCNEE2YnBuTE5nQUFFT2pxQVBEdEgyaGhwdFg1VE5mQ3VLNmR6ellBQUJEb3FnRHc3UjhBNnJwbVR0c0FBRUNnaXdQQXQzOEFxTy9TZVcwREFBQ0JMZ29BMy80QllCeVh6RzBiQUFBSUpBQUFJTkRaQUxEK0I0RHhuSnZmTmdBQUVPalZBUER0SHdERzlkb2N0d0VBZ0VBQ0FBQUNuUXdBNjM4QUdOK3BlVzREQUFDQkJBQUFCSG94QUt6L0FXQWVMODExR3dBQUNDUUFBQ0RRc3dDdy9nZUErYXpudXcwQUFBUVNBQUFRU0FBQVFLQi9Bc0R6ZndDWTEvR2N0d0VBZ0VBQ0FBQUNDUUFBQ1BSZkFIaitEd0R6Tzh4N0d3QUFDQ1FBQUNDUUFBQ0FRQUlBQUFLOVdSWS9BQVNBSkI4K2Z2cGpBd0FBZ1FRQUFBUVNBQUFRU0FBQVFDQUJBQUNCQkFBQUJCSUFBQkRvalg4REFBRHkyQUFBUUNBQkFBQ0JCQUFBQkJJQUFCQklBQUJBSUFFQUFJRUVBQUFFRWdBQUVFZ0FBRUFnQVFBQWdRUUFBQVFTQUFBUVNBQUFRQ0FCQUFDQkJBQUFCQklBQUJCSUFBQkFJQUVBQUlFRUFBQUVFZ0FBRUVnQUFFQWdBUUFBZ1FRQUFBUVNBQUFRU0FBQVFDQUJBQUNCQkFBQUJCSUFBQkJJQUFCQUlBRUFBSUhlOWo0QXpPcnI0Kyt1ci8vbDZWM1gxd2RxRXdEUVVPK2hmK3o0TEdJQVdQTUlBQnFwTlB6WEtwOE42TU1HQU80MHluQTluTk0yQUZnV0d3QzR5eWpELzlpSVp3YmFFd0FBRUVnQXdJMUcvaVk5OHRtQk5nUUEzR0NHQVRyRE5RQzNFd0FBRUVnQUFFQWdBUUJYbW1sMVB0TzFBTmNSQUFBUVNBQUFRQ0FCQUFDQkJBQUFCQklBQUJCSUFBQkFJQUVBQUlFRUFBQUVFZ0FBRUVnQUFFQWdBUUFBZ1FRQUFBUVNBQUFRU0FBQVFDQUJBQUNCQkFBQUJCSUFBQkJJQUFCQUlBRUFBSUVFQUFBRWV0djdBQUJzNyt2ajc2NnYvK1hwWGRmWDV6a0JBRENwM2tQLzJQRlp4RUFOSGdFQVRLalM4RityZkxZa05nQUFFeGxsdUI3T2FSdlFqdzBBd0NSR0dmN0hSanp6TEFRQUFBUVNBQUFUR1BtYjlNaG5INWtBQUJqY0RBTjBobXNZalFBQWdFQUNBQUFDQ1FDQWdjMjBPcC9wV2tZZ0FBQWdrQUFBZ0VBQ0FBQUNDUUFBQ0NRQUFDQ1FBQUNBUUFJQUFBSUpBQUFJSkFBQUlKQUFBSUJBQWdBQUFna0FBQWdrQUFBZ2tBQUFnRUFDQUFBQ0NRQUFDQ1FBQUNDUUFBQ0FRQUlBQUFJSkFBQUlKQUFBSUpBQUFJQkFBZ0FBQWdrQUFBZ2tBQUFna0FBQWdFQUNBQUFDQ1FBQUNDUUFBQ0NRQUFDQVFBSUFBQUlKQUFBSUpBQUFJSkFBQUlCQUFnQUFBZ2tBQUFna0FBQWdrQUFBZ0VBQ0FBQUNDUUFBQ1BTMjl3R281LzNqNTY2di8rdnBXOWZYQjBnZ0FGaVdwZi9RUDNaOEZqRUFzQTJQQUNnMS9OY3FudzFnWkRZQXdVWVpyb2R6MmdZQXRHTURFR3FVNFg5c3hETURWQ1VBQUNDUUFBZzA4amZwa2M4T1VJa0FDRFBEQUozaEdnQjZFd0FBRUVnQUFFQWdBUkJrcHRYNVROY0MwSU1BQUlCQUFnQUFBZ2tBQUFna0FBQWdrQUFBZ0VBQ0FBQUNDUUFBQ0NRQUFDQ1FBQUNBUUFJQUFBSUpBQUFJSkFBQUlKQUFBSUJBQWdBQUFna0FBQWdrQUFBZ2tBQUFnRUFDQUFBQ0NRQUFDQ1FBQUNDUUFBQ0FRQUlBQUFJSkFBQUlKQUFBSUpBQUFJQkFBZ0FBQWdrQUFBZ2tBQUFna0FBQWdFQUNBQUFDQ1FBQUNDUUFBQ0NRQUFDQVFBSUFBQUlKQUFBSUpBQUFJSkFBQUlCQUFnQUFBZ2tBQUFna0FBQWdrQUFBZ0VBQ0FBQUNDUUFBQ0NRQUFDQ1FBQUNBUUFJQUFBSUpBQUFJSkFBQUlKQUFBSUJBQWdBQUFna0FBQWdrQUFBZ2tBQUFnRUFDQUFBQ0NRQUFDQ1FBQUNDUUFBQ0FRQUlBQUFJSkFBQUlKQUFBSUpBQUFJQkFBZ0FBQWdrQUFBZ2tBQUFna0FBQWdFQUNBQUFDQ1FBQUNDUUFBQ0NRQUFDQVFBSUFBQUlKQUFBSUpBQUFJSkFBQUlCQUFnQUFBZ2tBQUFna0FBQWdrQUFBZ0VBQ0FBQUNDUUFBQ0NRQUFDQ1FBQUNBUUFJQUFBSUpBQUFJSkFBQUlKQUFBSUJBQWdBQUFna0FBQWdrQUFBZ2tBQUFnRUFDQUFBQ0NRQUFDQ1FBQUNDUUFBQ0FRQUlBQUFJSkFBQUlKQUFBSUpBQUFJQkFBZ0FBQWdrQUFBZ2tBQUFna0FBQWdFQUNBQUFDQ1FBQUNDUUFBQ0NRQUFDQVFBSUFBQUlKQUFBSUpBQUFJSkFBQUlCQUFnQUFBZ2tBQUFna0FBQWdrQUFBZ0VBQ0FBQUNDUUFBQ0NRQUFDQ1FBQUNBUUFJQUFBSUpBQUFJSkFBQUlKQUFBSUJBQWdBQUFna0FBQWdrQUFBZ2tBQUFnRUFDQUFBQ0NRQUFDQ1FBQUNDUUFBQ0FRQUlBQUFJSkFBQUlKQUFBSUpBQUFJQkFBZ0FBQWdtQUlMK2V2dlUrUWpNOXIrWEwwN3R1cjkxYXoydng5OWlHdjBkdUpRQUFJSkFBQUlCQUFpRE1ER3ZYQ3Rjd3c2cXl3alZVZUMvdlZlRWFLcnlYOTVyaEdrWWpBQUpWK01DNlZhV3pqL3lCVmVuc2xkN1RhMVU2ZTZYMzlGb2puMzFrQW9CaFZQcXdIWmtQMnpiOFBiYmg3N0VmQVJCcXRBK3ZxdWNkN2NPcjZubXJ2cituVkQxdjFmZjNsTkhPTzV1SER4OC8vZWw5Q1BwNi8vaTU5eEZlVmZYRGR1M3I0Ky9lUjNqVktCKzIvaDdiOFBmSU9UWUFsUDVBcTN5MnRjb2ZhSlhQdGxiNVBhOTh0clhLNzNubHN5V3hBZUNaM3QvQVJ2cVFmVTN2YjJDemZNajZlMnpEM3lOckFnQUFBbmtFQUFDQkJBQUFCQklBQUJCSUFBQkFJQUVBQUlFRUFBQUVFZ0FBRUVnQUFFQWdBUUFBZ1FRQUFBUVNBQUFRU0FBQVFDQUJBQUNCQkFBQUJCSUFBQkJJQUFCQUlBRUFBSUVFQUFBRUVnQUFFRWdBQUVBZ0FRQUFnUVFBQUFRU0FBQVFTQUFBUUNBQkFBQ0JCQUFBQkJJQUFCQklBQUJBSUFFQUFJRUVBQUFFRWdBQUVFZ0FBRUFnQVFBQWdRUUFBQVFTQUFBUVNBQUFRQ0FCQUFDQkJBQUFCQklBQUJCSUFBQkFvRGMvZjN4LzZIMElBR0JmTmdBQUVFZ0FBRUFnQVFBQWdRUUFBQVFTQUFBUVNBQUFRQ0FCQUFDQjNpekxzdmkzQUFBZ3g4OGYzeDlzQUFBZ2tBQUFnRUFDQUFBQ0NRQUFDUFJmQVBnaElBRE03ekR2YlFBQUlKQUFBSUJBQWdBQUF2MFRBSDRIQUFEek9wN3pOZ0FBRUVnQUFFQWdBUUFBZ1o0RmdOOEJBTUI4MXZQZEJnQUFBZ2tBQUFqMFlnQjREQUFBODNocHJ0c0FBRUFnQVFBQWdVNEdnTWNBQURDK1UvUGNCZ0FBQWdrQUFBajBhZ0I0REFBQTQzcHRqdHNBQUVDZ3N3RmdDd0FBNHprM3YyMEFBQ0NRQUFDQVFCY0ZnTWNBQURDT1MrYTJEUUFBQkxvNEFHd0JBS0MrUytlMURRQUFCTG9xQUd3QkFLQ3VhK2EwRFFBQUJMbzZBR3dCQUtDZWErZXpEUUFBQkxvcEFHd0JBS0NPVytheURRQUFCTG81QUd3QkFLQy9XK2Z4WFJzQUVRQUEvZHd6aHowQ0FJQkFkd2VBTFFBQTdPL2UrV3NEQUFDQm1nU0FMUUFBN0tmRjNHMjJBUkFCQUxDOVZ2UFdJd0FBQ05RMEFHd0JBR0E3TGVkczh3MkFDQUNBOWxyUDEwMGVBWWdBQUdobmk3bnFOd0FBRUdpekFMQUZBSUQ3YlRWUE45MEFpQUFBdU4yV2MzVHpSd0FpQUFDdXQvWDg5QnNBQUFpMFN3RFlBZ0RBNWZhWW03dHRBRVFBQUp5MzE3emM5UkdBQ0FDQTAvYWNrN3YvQmtBRUFNQnplOC9ITGo4Q0ZBRUE4RmVQdWRqdC93SVFBUURRYng1Mi9kOEFSUUFBeVhyT3dlNy9Eb0FJQUNCUjcvblhQUUNXcGY5TkFJQTlWWmg3SlFKZ1dXcmNEQURZV3BWNVZ5WUFscVhPVFFHQUxWU2FjNlVDWUZscTNSd0FhS1hhZkNzWEFNdFM3eVlCd0QwcXpyV1NBYkFzTlc4V0FGeXI2andyR3dETFV2ZW1BY0FsS3MreDBnR3dMTFZ2SGdDY1VuMStsVDdjMm9lUG4vNzBQZ01BdktiNjREOG92d0U0TnNwTkJTRFRTSE5xcUFCWWxyRnVMZ0E1UnB0UFF4MTJ6U01CQUhvYmJmQWZETGNCT0RicVRRZGdEaVBQb2FFRFlGbkd2dmtBakd2MCtUUDA0ZGM4RWdCZ2E2TVAvb1BoTndESFpubFRBS2hwcGprenpZV3MyUVlBME1wTWcvOWd1Z3RhRXdJQTNHckd3WDh3MVNPQWw4ejg1Z0d3bmRubng5UVh0MlliQU1BNXN3LytnNGlMWEJNQ0FLeWxEUDZEcUl0ZEV3SUFwQTMrZzhpTFhoTUNBSGxTQi85QjlNV3ZDUUdBK2FVUC9nTTM0UVF4QURBUFEvODVOK1FNSVFBd0xvUC9ORGZtQ21JQW9ENUQvekp1MG8zRUFFQWRodjcxM0xBR3hBREEvZ3o5KzdoNUd4QUVBTzBaK0cyNW1Uc1FCQURYTS9DMzVlWjJJZ29BL2pMczkvYy9hYWpjTUwzQ0pab0FBQUFBU1VWT1JLNUNZSUk9IiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9wbmciLCAicHVycG9zZSI6ICJhbnkgbWFza2FibGUifV19">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAD2UlEQVR4nO3dP04jMRiHYSdaiXLpOQY1NcfhLDnO1tQcgx7KrdgKBEtCZjyeP/7leXpnJpo3HyYWYlc24Prm9m3te6CNl+en3ZrXX+XiAr4cSwe+2MVEzBJxz3oBEXPKXHHP8qJCZqjWYe9bvlgpYmac1r00+3QImalaTOsmE1rMtNCio0mfCCEzl9ppXT2hxcycavuqClrMLKGms9FBi5klje1tVNBiZg1juhsctJhZ09D+BgUtZrZgSIdngxYzW3Kux+ZH37CmH4M2ndmin7o8eRoj5m34/XA3es3r4XGGO9meY6eJthwbVhPzlHUJjgZtOq9vapSXEPWxTr8FLeb1tYrxEqO25SDKl6BNZ3r0uVsTmiiCJspH0LYb9Oy9XxOaKIImyr4U2w0yXN/cvpnQRBE0UQRNlL39M0lMaKIImiiCJoqgiSJoogiaKIImiqCJImiiCJoogiaKoIkiaKL8WvsGevLn4e/oNfeHqxnuhFNM6IFqYp6yjjqCHmBqlKJejqDPaBWjqJchaKIImiiCJoqgiSJoogiaKIImiqNvvun5iN+E5ovej/gFzYeEI35BU0rJOeIXNFEETRRBE0XQRBE0UQRNFEETRdBEETRRBE0UQRNF0EQRNFEETZRu/2Ll98Pd6DWvh8cZ7oQt6XJC18Q8ZR396C7oqVGKOltXQbeKUdS5ugoazhE0UQRNFEETRdBEETRRBE0UQRNF0EQRNFEETRRBE0XQRBE0UQRNFEETRdBEETRRBE0UQRNF0EQRNFEETRRBE0XQRBE0UQRNFEETRdBEETRRBE0UQRNF0EQRNFEETRRBE0XQRBE0UQRNFEETRdBEETRRBE0UQRNF0EQRNFEETRRBE6WroF8Pj4u/zv3hqsk1x7zOpbzPOXQVdCnTH3bN+qkPqWb9pbzP1roLupT6hz0lktqHNeUhX8r7bGl3fXP7tvZNQCtdTmg4RdBEETRRBE0UQRNF0EQRNFEETRRBE0XQRBE0UQRNFEETRdBEETRRBE2U/cvz027tm4BWTGiiCJoogibKvpRS7KNJ8PL8tDOhiSJoonwEbdtBz977NaGJImiifAnatoMefe7WhCbKt6BNaXryf69HJ7So6cGxTm05iHIyaFOaLTvV548TWtRs0U9d2nIQ5WzQpjRbcq7HQRNa1GzBkA4HbzlEzZqG9jdqDy1q1jCmu9G/FIqaJY3trepbDlGzhJrOqr+2EzVzqu2rSZT+Gy2tTB2UTQ5WTGtaaNFR8xBNa8ZqORCbH32b1ozRupdZ4zOtOWWuwbfYNBU3S/z0XmV7IO7LsfQW9B/aRwwTdN6rVQAAAABJRU5ErkJggg==">
+<meta name="theme-color" content="#101B33">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Collection">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<style>
+  :root{
+    --navy:#101B33; --navy-soft:#1B2A4A; --paper:#F3F1EA; --card:#FFFFFF; --ink:#161B22;
+    --slate:#5B6472; --line:#E1DED2; --teal:#1F8A70; --teal-soft:#E4F1EC;
+    --amber:#C98A2C; --amber-soft:#FBF0DD; --red:#B3402A; --red-soft:#FBE9E3;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans', sans-serif;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 24px 80px;}
+  header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid var(--navy);padding-bottom:18px;margin-bottom:6px;flex-wrap:wrap;gap:14px;}
+  .brand-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .live-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);display:inline-block;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:32px;margin:0;color:var(--navy);letter-spacing:-0.01em;}
+  .header-meta{text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--slate);line-height:1.6;}
+  .header-meta b{color:var(--navy);}
+  .stale-note{background:var(--amber-soft);color:#8a5c17;border:1px solid #EBD4A3;border-radius:4px;padding:8px 12px;font-size:12px;margin:14px 0 20px;font-family:'IBM Plex Mono',monospace;}
+
+  nav.tabs{display:flex;gap:2px;margin-bottom:22px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+  nav.tabs button{font-family:'IBM Plex Sans',sans-serif;font-weight:600;font-size:13.5px;background:none;border:none;padding:12px 16px;cursor:pointer;color:var(--slate);border-bottom:2.5px solid transparent;margin-bottom:-1px;transition:.15s;}
+  nav.tabs button:hover{color:var(--navy);}
+  nav.tabs button.active{color:var(--navy);border-bottom-color:var(--amber);}
+
+  .panel{display:none;} .panel.active{display:block;animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+  .toolbar{display:flex;gap:10px;align-items:center;margin-bottom:20px;flex-wrap:wrap;}
+  .toolbar label{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--slate);font-weight:600;margin-right:2px;}
+  select, input[type=text]{
+    font-family:'IBM Plex Sans',sans-serif;font-size:13px;padding:7px 10px;border:1px solid var(--line);
+    border-radius:4px;background:var(--card);color:var(--ink);
+  }
+  .seg{display:flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;}
+  .seg button{border:none;background:var(--card);padding:7px 14px;font-size:12.5px;font-weight:600;color:var(--slate);cursor:pointer;font-family:'IBM Plex Sans',sans-serif;}
+  .seg button.active{background:var(--navy);color:#fff;}
+
+  .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:24px;}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:16px 18px;}
+  .kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--slate);font-weight:600;margin-bottom:8px;}
+  .kpi .value{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--navy);line-height:1.1;}
+  .kpi .sub{font-family:'IBM Plex Mono',monospace;font-size:11.5px;margin-top:6px;color:var(--slate);}
+  .kpi .sub.up{color:var(--teal);} .kpi .sub.down{color:var(--red);}
+
+  .section{margin-bottom:30px;}
+  .section-title{font-family:'Fraunces',serif;font-size:19px;font-weight:600;color:var(--navy);margin:0 0 4px;display:flex;align-items:baseline;gap:8px;}
+  .section-title .num{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--amber);font-weight:600;}
+  .section-desc{font-size:13px;color:var(--slate);margin:0 0 14px;max-width:640px;}
+  .grid-2{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  @media(max-width:820px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:18px;}
+  .chart-wrap{position:relative;height:230px;} .chart-wrap.tall{height:280px;}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--slate);font-weight:600;padding:8px 10px;border-bottom:1.5px solid var(--navy);}
+  td{padding:9px 10px;border-bottom:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
+  td.name{font-family:'IBM Plex Sans',sans-serif;font-weight:500;font-size:13px;}
+  tr:last-child td{border-bottom:none;}
+  .pill{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;font-family:'IBM Plex Mono',monospace;}
+  .pill.good{background:var(--teal-soft);color:var(--teal);}
+  .pill.warn{background:var(--amber-soft);color:var(--amber);}
+  .pill.risk{background:var(--red-soft);color:var(--red);}
+  .pill.prod{background:#EDEBFA;color:#4A3F9E;}
+
+  .insight-panel{background:var(--navy);border-radius:4px;padding:22px 24px;color:#EDEFF3;margin-top:6px;}
+  .insight-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .insight-head .dot{width:8px;height:8px;border-radius:50%;background:var(--amber);}
+  .insight-head .t{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#B9C4D6;}
+  .insight-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
+  .insight-list li{padding-left:18px;position:relative;font-size:13.5px;line-height:1.55;color:#DEE3EC;}
+  .insight-list li::before{content:'—';position:absolute;left:0;top:0;color:var(--amber);font-weight:700;}
+  .insight-list b{color:#fff;}
+  .insight-list .tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;padding:1px 6px;border-radius:3px;margin-right:6px;background:rgba(255,255,255,.1);color:#B9C4D6;position:relative;top:-1px;}
+  .insight-list .tag.act{background:rgba(201,138,44,.25);color:#F3D08F;}
+
+  .empty-state{padding:40px 20px;text-align:center;color:var(--slate);font-size:13.5px;}
+  .empty-state b{color:var(--navy);}
+
+  .roster-row{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line);gap:10px;flex-wrap:wrap;}
+  .roster-row:last-child{border-bottom:none;}
+  .roster-left{display:flex;flex-direction:column;}
+  .roster-left .cn{font-weight:600;font-size:13.5px;}
+  .roster-left .meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--slate);}
+  .roster-right{text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+
+  footer{margin-top:40px;font-size:11.5px;color:var(--slate);font-family:'IBM Plex Mono',monospace;text-align:center;}
+
+  /* ---- Install hint banner ---- */
+  .install-banner{
+    display:none;background:var(--navy-soft);color:#EDEFF3;border-radius:6px;
+    padding:12px 14px;margin-bottom:16px;font-size:12.5px;line-height:1.5;
+    align-items:center;gap:10px;
+  }
+  .install-banner.show{display:flex;}
+  .install-banner b{color:#F3D08F;}
+  .install-banner button{
+    margin-left:auto;background:none;border:1px solid rgba(255,255,255,.3);color:#EDEFF3;
+    border-radius:4px;padding:5px 10px;font-size:11px;cursor:pointer;flex-shrink:0;
+  }
+  .install-banner .go-btn{background:var(--amber);border-color:var(--amber);color:#101B33;font-weight:700;}
+
+  /* ---- Bottom nav (mobile app-style) ---- */
+  .bottom-nav{
+    display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;
+    background:var(--card);border-top:1px solid var(--line);
+    padding:6px 4px calc(6px + env(safe-area-inset-bottom));
+    box-shadow:0 -2px 10px rgba(16,27,51,.06);
+  }
+  .bottom-nav-row{display:flex;justify-content:space-around;}
+  .bottom-nav button{
+    background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px;
+    color:var(--slate);font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:600;
+    padding:6px 4px;flex:1;cursor:pointer;
+  }
+  .bottom-nav button .ic{width:18px;height:18px;border-radius:5px;background:var(--line);}
+  .bottom-nav button.active{color:var(--navy);}
+  .bottom-nav button.active .ic{background:var(--amber);}
+
+  /* ---- Mobile breakpoint ---- */
+  @media(max-width:720px){
+    .wrap{padding:16px 14px calc(84px + env(safe-area-inset-bottom));}
+    header{align-items:flex-start;padding-bottom:14px;}
+    h1{font-size:23px;}
+    .header-meta{text-align:left;font-size:11px;}
+    .brand-eyebrow{font-size:9.5px;}
+    nav.tabs{display:none;}
+    .bottom-nav{display:block;}
+    .kpi-row{grid-template-columns:repeat(2,1fr);gap:9px;}
+    .kpi{padding:12px 13px;}
+    .kpi .value{font-size:21px;}
+    .kpi .label{font-size:9.5px;}
+    .section-title{font-size:16px;}
+    .card{padding:13px;overflow-x:auto;}
+    table{min-width:520px;}
+    .toolbar{gap:8px;}
+    .toolbar select, .toolbar input[type=text]{min-height:38px;flex:1 1 auto;}
+    .seg button{padding:8px 12px;min-height:38px;}
+    .insight-panel{padding:16px;}
+    .roster-row{padding:10px 4px;}
+    .chart-wrap{height:200px;} .chart-wrap.tall{height:240px;}
+    .stale-note{font-size:11px;}
+  }
+
+  /* ---- Loading / error states ---- */
+  .load-screen{padding:80px 20px;text-align:center;}
+  .spinner{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--amber);border-radius:50%;margin:0 auto 16px;animation:spin .8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .load-screen .msg{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--slate);}
+  .error-screen{background:var(--red-soft);border:1px solid #EBC0B4;border-radius:6px;padding:22px;text-align:center;color:#7A2E1D;}
+  .error-screen h3{font-family:'Fraunces',serif;margin:0 0 8px;font-size:17px;}
+  .error-screen p{font-size:13px;margin:0 0 14px;line-height:1.5;}
+  .error-screen button{background:var(--navy);color:#fff;border:none;border-radius:4px;padding:9px 16px;font-weight:600;font-size:12.5px;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="brand-eyebrow"><span class="live-dot"></span>Live pull · Google Drive · Samut Sakhon Province</div>
+      <h1>Branch Collection Dashboard</h1>
+    </div>
+    <div class="header-meta" id="headerMeta"></div>
+  </header>
+  <div class="stale-note" id="staleNote"></div>
+  <div class="install-banner" id="installBanner">
+    <span id="installText"></span>
+    <button id="installDismiss">Dismiss</button>
+    <button class="go-btn" id="installGo" style="display:none">Add</button>
+  </div>
+
+  <div id="loadingScreen" class="load-screen">
+    <div class="spinner"></div>
+    <div class="msg">Pulling latest data from Google Sheets…</div>
+  </div>
+  <div id="errorScreen" class="error-screen" style="display:none">
+    <h3>Couldn't load live data</h3>
+    <p id="errorMsg">The published sheet links may need to be checked, or your connection dropped.</p>
+    <button onclick="boot()">Retry</button>
+  </div>
+
+  <div id="appContent" style="display:none">
+  <nav class="tabs" id="tabs">
+    <button data-tab="overview" class="active">Overview</button>
+    <button data-tab="bm">Branch Manager</button>
+    <button data-tab="lo">My Portfolio (Loan Officer)</button>
+    <button data-tab="cs">Customer Service</button>
+    <button data-tab="fc">Field Collection</button>
+  </nav>
+
+  <div class="bottom-nav" id="bottomNav">
+    <div class="bottom-nav-row">
+      <button data-tab="overview" class="active"><span class="ic"></span>Overview</button>
+      <button data-tab="bm"><span class="ic"></span>Branch</button>
+      <button data-tab="lo"><span class="ic"></span>Mine</button>
+      <button data-tab="cs"><span class="ic"></span>Service</button>
+      <button data-tab="fc"><span class="ic"></span>Field</button>
+    </div>
+  </div>
+
+  <!-- ================= OVERVIEW ================= -->
+  <div class="panel active" id="panel-overview">
+    <div class="kpi-row" id="ovKpis"></div>
+
+    <div class="grid-2 section">
+      <div class="card">
+        <h2 class="section-title" style="font-size:16px"><span class="num">01</span> Product mix</h2>
+        <p class="section-desc" style="margin-bottom:10px">Bi-weekly (due 15th &amp; 30th) vs Monthly (due 30th only).</p>
+        <table>
+          <thead><tr><th>Product</th><th>Active loans</th><th>Portfolio</th><th>Overdue now</th><th>Chronic</th></tr></thead>
+          <tbody id="productTable"></tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h2 class="section-title" style="font-size:16px"><span class="num">02</span> Portfolio by branch</h2>
+        <div class="chart-wrap"><canvas id="branchChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="num">03</span> Bi-weekly collection rate trend</h2>
+      <p class="section-desc">Share of due installments paid on time each cycle (bi-weekly product — the larger, higher-frequency book).</p>
+      <div class="card"><div class="chart-wrap"><canvas id="trendChart"></canvas></div></div>
+    </div>
+
+    <div class="insight-panel">
+      <div class="insight-head"><span class="dot"></span><span class="t">AI Summary — Whole Portfolio</span></div>
+      <ul class="insight-list" id="ovInsights"></ul>
+    </div>
+  </div>
+
+  <!-- ================= BRANCH MANAGER ================= -->
+  <div class="panel" id="panel-bm">
+    <div class="toolbar">
+      <label>Product</label>
+      <div class="seg" id="bmProductSeg">
+        <button data-p="all" class="active">All</button>
+        <button data-p="bw">Bi-weekly</button>
+        <button data-p="mo">Monthly</button>
+      </div>
+    </div>
+    <div class="section">
+      <h2 class="section-title"><span class="num">01</span> Branch scorecard</h2>
+      <div class="card">
+        <table>
+          <thead><tr><th>Branch</th><th>Active loans</th><th>Active portfolio</th><th>Collection rate</th><th>Overdue now</th><th>Chronic (2+ misses)</th></tr></thead>
+          <tbody id="branchTable"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="grid-2 section">
+      <div class="card">
+        <h2 class="section-title" style="font-size:16px"><span class="num">02</span> Collection rate by branch</h2>
+        <div class="chart-wrap"><canvas id="branchRateChart"></canvas></div>
+      </div>
+      <div class="card">
+        <h2 class="section-title" style="font-size:16px"><span class="num">03</span> Overdue amount by branch</h2>
+        <div class="chart-wrap"><canvas id="branchOverdueChart"></canvas></div>
+      </div>
+    </div>
+    <div class="insight-panel">
+      <div class="insight-head"><span class="dot"></span><span class="t">AI Suggestions — Branch Manager</span></div>
+      <ul class="insight-list" id="bmInsights"></ul>
+    </div>
+  </div>
+
+  <!-- ================= LOAN OFFICER ================= -->
+  <div class="panel" id="panel-lo">
+    <div class="toolbar">
+      <label>View</label>
+      <select id="loSelect"><option value="">— All officers (leaderboard) —</option></select>
+    </div>
+
+    <div id="loLeaderboardView">
+      <div class="section">
+        <h2 class="section-title"><span class="num">01</span> Officer performance leaderboard</h2>
+        <p class="section-desc">Ranked by collection rate on the latest recorded cycle. Officers with fewer than 3 active loans are excluded to avoid small-sample noise. Select a name above to see an individual's own portfolio and notifications.</p>
+        <div class="card"><table><thead><tr><th>Loan officer</th><th>Branch</th><th>Active loans</th><th>Portfolio</th><th>Overdue</th><th>Chronic</th><th>Collection rate</th></tr></thead><tbody id="loTable"></tbody></table></div>
+      </div>
+      <div class="section">
+        <h2 class="section-title"><span class="num">02</span> Rate by officer</h2>
+        <div class="card"><div class="chart-wrap tall"><canvas id="loChart"></canvas></div></div>
+      </div>
+      <div class="insight-panel">
+        <div class="insight-head"><span class="dot"></span><span class="t">AI Suggestions — Loan Officer Coaching</span></div>
+        <ul class="insight-list" id="loInsights"></ul>
+      </div>
+    </div>
+
+    <div id="loPersonalView" style="display:none">
+      <div class="kpi-row" id="loPersonalKpis"></div>
+      <div class="section">
+        <h2 class="section-title"><span class="num">01</span> My notifications</h2>
+        <p class="section-desc">Clients on your portfolio who are overdue right now, or whose loan is maturing within 15 days.</p>
+        <div class="card" style="padding:6px 18px" id="loNotifications"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CUSTOMER SERVICE ================= -->
+  <div class="panel" id="panel-cs">
+    <div class="kpi-row" id="csKpis"></div>
+    <div class="grid-2 section">
+      <div class="card">
+        <h2 class="section-title" style="font-size:16px"><span class="num">01</span> First loan vs. rollover</h2>
+        <div class="chart-wrap"><canvas id="rolloverChart"></canvas></div>
+      </div>
+      <div class="card">
+        <h2 class="section-title" style="font-size:16px"><span class="num">02</span> Loan cycle distribution</h2>
+        <div class="chart-wrap"><canvas id="cycleChart"></canvas></div>
+      </div>
+    </div>
+    <div class="insight-panel">
+      <div class="insight-head"><span class="dot"></span><span class="t">AI Suggestions — Customer Service</span></div>
+      <ul class="insight-list" id="csInsights"></ul>
+    </div>
+  </div>
+
+  <!-- ================= FIELD COLLECTION ================= -->
+  <div class="panel" id="panel-fc">
+    <div class="kpi-row" id="fcKpis"></div>
+    <div class="toolbar">
+      <label>Branch</label>
+      <select id="fcBranchSelect"><option value="">All branches</option></select>
+      <label>Type</label>
+      <div class="seg" id="fcTypeSeg">
+        <button data-t="all" class="active">All</button>
+        <button data-t="overdue">Overdue</button>
+        <button data-t="upcoming_maturity">Maturing soon</button>
+      </div>
+      <input type="text" id="fcSearch" placeholder="Search client, officer, contract no…" style="flex:1;min-width:180px">
+    </div>
+    <div class="section">
+      <h2 class="section-title"><span class="num">01</span> Field visit list</h2>
+      <div class="card" style="padding:6px 18px" id="fcList"></div>
+    </div>
+    <div class="insight-panel">
+      <div class="insight-head"><span class="dot"></span><span class="t">AI Suggestions — Field Collection</span></div>
+      <ul class="insight-list" id="fcInsights"></ul>
+    </div>
+  </div>
+
+  <footer id="footerNote">Live-pulled from "Bi-weekly Collection All" &amp; "Monthly Collection All" · figures rounded to nearest ฿100</footer>
+  </div><!-- /appContent -->
+</div>
+
+<script>
+/* ===================== LIVE DATA SOURCE ===================== */
+/* Paste the two "Publish to web -> CSV" links for the "Data" sheet of each workbook: */
+const BW_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-XruRD3ezUVheTz5BlnP6SB8Ck5Z5uaBOTShu2NZioP0drU4piwPJcjmeFqMS4cx1pKAc02R6Qr5D/pub?gid=0&single=true&output=csv";
+const MO_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQemm_h3dESrgn4dTuIS-XfMYLgvetzHtz4qt3PQ4jQRPHb_HFdJcrL0V-gTWyCEN-z5FEF241VgasP/pub?gid=0&single=true&output=csv";
+
+let DATA = null;
+
+function toNum(v){ if(v===undefined||v===null||v==='') return null; const n = Number(String(v).replace(/,/g,'').trim()); return isNaN(n)?null:n; }
+
+function parseDate(v){
+  if(!v) return null;
+  v = String(v).trim();
+  let m = v.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if(m) return new Date(+m[1], +m[2]-1, +m[3]);
+  m = v.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if(m){
+    let a=+m[1], b=+m[2], y=+m[3];
+    if(a>12) return new Date(y, b-1, a);   // D/M/Y
+    return new Date(y, a-1, b);            // assume M/D/Y (Sheets default)
+  }
+  const d = new Date(v);
+  return isNaN(d) ? null : d;
+}
+
+async function fetchCSV(url, label){
+  const res = await fetch(url, {cache:'no-store'});
+  if(!res.ok) throw new Error('HTTP '+res.status+' fetching '+label+' CSV');
+  const text = await res.text();
+  const parsed = Papa.parse(text, {header:true, skipEmptyLines:true});
+  const required = ['Loan Id','Client Name','Branch','Assignee','Loan Amount','Close?'];
+  const missing = required.filter(c => !parsed.meta.fields.includes(c));
+  if(missing.length){
+    throw new Error(label+' sheet is missing expected columns ('+missing.join(', ')+') — this usually means the wrong tab got published. Re-check Publish to web and make sure "Data" is selected, not the default/first tab.');
+  }
+  return {rows: parsed.data, headers: parsed.meta.fields};
+}
+
+/* Period columns are detected dynamically from headers so new bi-weekly/monthly
+   cycles that get added to the sheet over time are picked up automatically —
+   nothing needs to be hardcoded or re-published on this end. */
+const BW_CORE = new Set(['Due','Loan Id','Borrower Id','Contract No','Client Name','Phone Number','Province','Branch','Disbursed Date','Loan Amount','Loan End Date','Assignee','Loan Cycle','1st Loan vs Rollover','Created At','Close Contract','Close?']);
+function detectBwPeriods(headers){ return headers.filter(h => !BW_CORE.has(h) && /^\d{1,2}\/\d{1,2}$/.test(h)); }
+function detectMoPeriods(headers){ return headers.filter(h => /^Due \d{1,2}\/\d{1,2}$/.test(h)); }
+
+function tagRows(rows, periods, productName){
+  rows.forEach(r=>{
+    let val=null, npc=0;
+    periods.forEach(p=>{
+      const v = r[p];
+      if(v!==undefined && v!==null && v!==''){ val=v; if(v==='Not paid') npc++; }
+    });
+    r.__latest_status = val;
+    r.__notpaid_count = npc;
+    r.__product = productName;
+  });
+  return rows;
+}
+
+function kpisFor(rows){
+  const active = rows.filter(r=>r['Close?']==='No');
+  const overdue = rows.filter(r=>r.__latest_status==='Not paid');
+  const chronic = rows.filter(r=>r.__notpaid_count>=2);
+  const sum = (arr,key)=>arr.reduce((s,r)=> s+(toNum(r[key])||0),0);
+  return {
+    total_loans_ever: rows.length,
+    active_loans: active.length,
+    closed_loans: rows.filter(r=>r['Close?']==='Yes').length,
+    active_portfolio: Math.round(sum(active,'Loan Amount')),
+    total_disbursed_alltime: Math.round(sum(rows,'Loan Amount')),
+    avg_loan_size: rows.length ? Math.round(sum(rows,'Loan Amount')/rows.length) : 0,
+    overdue_now: overdue.length,
+    overdue_amount: Math.round(sum(overdue,'Loan Amount')),
+    chronic_loans: chronic.length,
+    chronic_amount: Math.round(sum(chronic,'Loan Amount')),
+    rollover_share_pct: rows.length ? Math.round(1000*rows.filter(r=>r['1st Loan vs Rollover']==='Rollover').length/rows.length)/10 : 0
+  };
+}
+
+function trendFor(rows, periods){
+  return periods.map(p=>{
+    const s = rows.map(r=>r[p]).filter(v=>v!==undefined && v!==null && v!=='');
+    const active = s.filter(v=>v!=='Close');
+    const tot = active.length;
+    const paid = active.filter(v=>v==='Paid').length;
+    return {
+      period:p, total:tot, paid,
+      not_paid: active.filter(v=>v==='Not paid').length,
+      partial: active.filter(v=>v==='Partial').length,
+      writeoff: active.filter(v=>v==='Write-off').length,
+      collection_rate: tot ? Math.round(1000*paid/tot)/10 : null
+    };
+  });
+}
+
+function branchBlock(rows){
+  const byBranch = {};
+  rows.forEach(r=>{ const b=r['Branch']||'—'; (byBranch[b]=byBranch[b]||[]).push(r); });
+  const out = Object.entries(byBranch).map(([branch,g])=>{
+    const active = g.filter(r=>r['Close?']==='No');
+    const overdue = g.filter(r=>r.__latest_status==='Not paid');
+    const chronic = g.filter(r=>r.__notpaid_count>=2);
+    const denom = g.filter(r=>['Paid','Not paid','Partial'].includes(r.__latest_status)).length;
+    const paidCt = g.filter(r=>r.__latest_status==='Paid').length;
+    return {
+      branch,
+      active_loans: active.length,
+      portfolio: Math.round(active.reduce((s,r)=>s+(toNum(r['Loan Amount'])||0),0)),
+      overdue_count: overdue.length,
+      overdue_amount: Math.round(overdue.reduce((s,r)=>s+(toNum(r['Loan Amount'])||0),0)),
+      chronic_count: chronic.length,
+      chronic_amount: Math.round(chronic.reduce((s,r)=>s+(toNum(r['Loan Amount'])||0),0)),
+      collection_rate_latest: denom ? Math.round(1000*paidCt/denom)/10 : 0
+    };
+  });
+  return out.sort((a,b)=>b.portfolio-a.portfolio);
+}
+
+function loBlock(rows, minLoans=3){
+  const byLO = {};
+  rows.forEach(r=>{ const lo=r['Assignee']||'—'; (byLO[lo]=byLO[lo]||[]).push(r); });
+  const out=[];
+  Object.entries(byLO).forEach(([lo,g])=>{
+    if(lo==='CO'||lo==='BB') return;
+    const active = g.filter(r=>r['Close?']==='No');
+    if(active.length<minLoans) return;
+    const overdue = g.filter(r=>r.__latest_status==='Not paid');
+    const chronic = g.filter(r=>r.__notpaid_count>=2);
+    const denom = g.filter(r=>['Paid','Not paid','Partial'].includes(r.__latest_status)).length;
+    const paidCt = g.filter(r=>r.__latest_status==='Paid').length;
+    const counts={}; g.forEach(r=>{ const b=r['Branch']||'—'; counts[b]=(counts[b]||0)+1; });
+    const branch = Object.entries(counts).sort((a,b)=>b[1]-a[1])[0][0];
+    out.push({
+      lo, branch,
+      active_loans: active.length,
+      portfolio: Math.round(active.reduce((s,r)=>s+(toNum(r['Loan Amount'])||0),0)),
+      disbursed_alltime: Math.round(g.reduce((s,r)=>s+(toNum(r['Loan Amount'])||0),0)),
+      overdue_count: overdue.length,
+      overdue_amount: Math.round(overdue.reduce((s,r)=>s+(toNum(r['Loan Amount'])||0),0)),
+      chronic_count: chronic.length,
+      collection_rate: denom ? Math.round(1000*paidCt/denom)/10 : 0
+    });
+  });
+  return out.sort((a,b)=>a.collection_rate-b.collection_rate);
+}
+
+function rosterFor(rows, today){
+  const out=[];
+  rows.forEach(r=>{
+    if(r['Assignee']==='CO'||r['Assignee']==='BB') return;
+    let type=null;
+    if(r.__latest_status==='Not paid') type='overdue';
+    else if(r['Close?']==='No'){
+      const end = parseDate(r['Loan End Date']);
+      if(end){ const days = Math.round((end-today)/86400000); if(days>=0 && days<=15) type='upcoming_maturity'; }
+    }
+    if(type){
+      const end = parseDate(r['Loan End Date']);
+      out.push({
+        lo:r['Assignee'], branch:r['Branch'], product:r.__product,
+        client_name: r['Client Name']||null,
+        phone: r['Phone Number']||null,
+        contract_no: String(r['Contract No']||''),
+        loan_amount: Math.round(toNum(r['Loan Amount'])||0),
+        loan_end_date: end ? end.toISOString().slice(0,10) : null,
+        notpaid_count: r.__notpaid_count,
+        type
+      });
+    }
+  });
+  return out;
+}
+
+function valueCounts(rows, key){
+  const c={}; rows.forEach(r=>{ const v=r[key]||'—'; c[v]=(c[v]||0)+1; }); return c;
+}
+function firstVsRollover(rows){
+  const c={};
+  rows.forEach(r=>{ const v=r['1st Loan vs Rollover']||'—'; if(!c[v]) c[v]={count:0,amount:0}; c[v].count++; c[v].amount+=toNum(r['Loan Amount'])||0; });
+  return Object.entries(c).map(([key,v])=>({'1st Loan vs Rollover':key, count:v.count, amount:Math.round(v.amount)}));
+}
+
+async function buildData(){
+  const [bw, mo] = await Promise.all([fetchCSV(BW_CSV_URL,'Bi-weekly'), fetchCSV(MO_CSV_URL,'Monthly')]);
+  const bwPeriods = detectBwPeriods(bw.headers);
+  const moPeriodsRaw = detectMoPeriods(mo.headers);
+  const moPeriods = moPeriodsRaw.map(h=>h.replace('Due ',''));
+  // normalize monthly headers to bare period labels, same as bi-weekly
+  mo.rows.forEach(r=>{ moPeriodsRaw.forEach(h=>{ r[h.replace('Due ','')] = r[h]; }); });
+
+  tagRows(bw.rows, bwPeriods, 'Bi-weekly');
+  tagRows(mo.rows, moPeriods, 'Monthly');
+  const combined = bw.rows.concat(mo.rows);
+
+  const today = new Date();
+
+  return {
+    as_of: today.toISOString().slice(0,10),
+    kpis_all: kpisFor(combined), kpis_bw: kpisFor(bw.rows), kpis_mo: kpisFor(mo.rows),
+    trend_bw: trendFor(bw.rows, bwPeriods), trend_mo: trendFor(mo.rows, moPeriods),
+    branches_all: branchBlock(combined), branches_bw: branchBlock(bw.rows), branches_mo: branchBlock(mo.rows),
+    los_all: loBlock(combined),
+    roster: rosterFor(combined, today),
+    loan_cycle: valueCounts(combined, 'Loan Cycle'),
+    first_vs_rollover: firstVsRollover(combined)
+  };
+}
+
+async function boot(){
+  document.getElementById('loadingScreen').style.display='block';
+  document.getElementById('errorScreen').style.display='none';
+  document.getElementById('appContent').style.display='none';
+  try{
+    DATA = await buildData();
+    document.getElementById('loadingScreen').style.display='none';
+    document.getElementById('appContent').style.display='block';
+    renderAll();
+  }catch(e){
+    console.error(e);
+    document.getElementById('loadingScreen').style.display='none';
+    document.getElementById('errorScreen').style.display='block';
+    document.getElementById('errorMsg').textContent = 'Details: ' + e.message + ' — check that both sheets are still published to web as CSV, and that the "Data" tab (not a different tab) was selected when publishing.';
+  }
+}
+boot();
+
+Chart.defaults.font.family = "'IBM Plex Sans', sans-serif";
+Chart.defaults.font.size = 11.5;
+Chart.defaults.color = '#5B6472';
+const NAVY='#101B33', TEAL='#1F8A70', AMBER='#C98A2C', RED='#B3402A', LINE='#E1DED2';
+
+function fmtTHB(n){ if(n>=1e6) return '฿'+(n/1e6).toFixed(2)+'M'; if(n>=1e3) return '฿'+(n/1e3).toFixed(0)+'K'; return '฿'+n; }
+function shortLO(name){ return name.replace('THLO-SMSK-','').replace('THLO-CHBR-',''); }
+function rateCls(r){ return r>=93?'good':(r>=88?'warn':'risk'); }
+
+/* Chart creation must NEVER be allowed to throw and halt the rest of the script —
+   every other section (tables, KPI cards, notification lists, insights) is more
+   important than the charts and must render regardless of chart library status. */
+function safeChart(canvasId, config){
+  try{
+    if(typeof Chart === 'undefined'){
+      const el = document.getElementById(canvasId);
+      if(el && el.parentElement) el.parentElement.insertAdjacentHTML('beforeend','<div class="empty-state" style="padding:16px">Chart library did not load — data tables below are unaffected.</div>');
+      return null;
+    }
+    const el = document.getElementById(canvasId);
+    if(!el) return null;
+    return new Chart(el, config);
+  }catch(e){
+    console.error('Chart render failed for', canvasId, e);
+    return null;
+  }
+}
+
+/* header meta + staleness */
+document.getElementById('headerMeta').innerHTML =
+  `As of <b>${DATA.as_of}</b><br>${DATA.kpis_all.total_loans_ever.toLocaleString()} contracts across both products`;
+const lastBw = DATA.trend_bw[DATA.trend_bw.length-1].period;
+const lastMo = DATA.trend_mo[DATA.trend_mo.length-1].period;
+document.getElementById('staleNote').innerHTML =
+  `Latest recorded cycle in the sheet — Bi-weekly: <b>${lastBw}</b>, Monthly: <b>${lastMo}</b>. If today's date is later than that, the next cycle simply hasn't been entered into the source system yet — this dashboard reflects the sheet as last pulled, not a live per-second feed.`;
+
+/* ---- Tabs (top bar + bottom mobile nav, kept in sync) ---- */
+function switchTab(tabName){
+  document.querySelectorAll('#tabs button, #bottomNav button').forEach(b=>b.classList.toggle('active', b.dataset.tab===tabName));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  const panel = document.getElementById('panel-'+tabName);
+  if(panel) panel.classList.add('active');
+  window.scrollTo({top:0, behavior:'instant'});
+}
+document.querySelectorAll('#tabs button, #bottomNav button').forEach(btn=>{
+  btn.addEventListener('click', ()=> switchTab(btn.dataset.tab));
+});
+
+/* ---- Add to Home Screen hint ---- */
+(function(){
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  if(isStandalone) return; // already installed, no need to prompt
+  const ua = navigator.userAgent;
+  const isIOS = /iPad|iPhone|iPod/.test(ua) || (ua.includes('Macintosh') && 'ontouchend' in document);
+  const isAndroid = /Android/.test(ua);
+  if(!isIOS && !isAndroid) return; // desktop: skip the hint, not relevant
+
+  const banner = document.getElementById('installBanner');
+  const textEl = document.getElementById('installText');
+  const goBtn = document.getElementById('installGo');
+  let deferredPrompt = null;
+
+  if(isIOS){
+    textEl.innerHTML = 'Add this to your home screen: tap <b>Share</b> then <b>Add to Home Screen</b>.';
+    banner.classList.add('show');
+  } else if(isAndroid){
+    textEl.innerHTML = 'Add this dashboard to your home screen for one-tap access.';
+    window.addEventListener('beforeinstallprompt', (e)=>{
+      e.preventDefault();
+      deferredPrompt = e;
+      goBtn.style.display = 'inline-block';
+      banner.classList.add('show');
+    });
+    // fallback text-only hint if the install prompt event never fires (e.g. criteria not met on a local file)
+    setTimeout(()=>{ if(!banner.classList.contains('show')){ textEl.innerHTML = 'Add this to your home screen: open the browser menu (⋮) and choose <b>Add to Home screen</b>.'; banner.classList.add('show'); } }, 2500);
+    goBtn.addEventListener('click', async ()=>{
+      if(!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      banner.classList.remove('show');
+    });
+  }
+  document.getElementById('installDismiss').addEventListener('click', ()=> banner.classList.remove('show'));
+})();
+
+/* ===================== ALL DATA-DEPENDENT RENDERING ===================== */
+function renderAll(){
+/* ===================== OVERVIEW ===================== */
+const k = DATA.kpis_all;
+document.getElementById('ovKpis').innerHTML = `
+  <div class="kpi"><div class="label">Active portfolio</div><div class="value">${fmtTHB(k.active_portfolio)}</div><div class="sub">${k.active_loans.toLocaleString()} active loans</div></div>
+  <div class="kpi"><div class="label">Latest collection rate</div><div class="value">${DATA.trend_bw[DATA.trend_bw.length-1].collection_rate}%</div><div class="sub down">bi-weekly, ${lastBw}</div></div>
+  <div class="kpi"><div class="label">Currently overdue</div><div class="value">${fmtTHB(k.overdue_amount)}</div><div class="sub">${k.overdue_now} loans, both products</div></div>
+  <div class="kpi"><div class="label">Chronic delinquents</div><div class="value">${k.chronic_loans}</div><div class="sub">missed 2+ cycles</div></div>
+  <div class="kpi"><div class="label">Rollover share</div><div class="value">${k.rollover_share_pct}%</div><div class="sub">of all contracts ever</div></div>
+`;
+
+const prodTbl = document.getElementById('productTable');
+[['Bi-weekly', DATA.kpis_bw],['Monthly', DATA.kpis_mo]].forEach(([name,pk])=>{
+  prodTbl.innerHTML += `<tr>
+    <td class="name">${name}</td><td>${pk.active_loans.toLocaleString()}</td>
+    <td>${fmtTHB(pk.active_portfolio)}</td><td>${pk.overdue_now}</td><td>${pk.chronic_loans}</td></tr>`;
+});
+
+safeChart('branchChart', {
+  type:'doughnut',
+  data:{ labels: DATA.branches_all.map(b=>b.branch.replace('Samut Sakhon ','')),
+    datasets:[{data: DATA.branches_all.map(b=>b.portfolio), backgroundColor:[NAVY,TEAL,AMBER]}] },
+  options:{plugins:{legend:{position:'bottom', labels:{boxWidth:10,padding:12}}}}
+});
+
+safeChart('trendChart', {
+  type:'line',
+  data:{ labels: DATA.trend_bw.map(t=>t.period),
+    datasets:[{label:'Collection rate %', data: DATA.trend_bw.map(t=>t.collection_rate),
+      borderColor: NAVY, backgroundColor:'rgba(16,27,51,0.06)', fill:true, tension:.3, pointRadius:3, pointBackgroundColor: AMBER, borderWidth:2}] },
+  options:{ plugins:{legend:{display:false}}, scales:{ y:{min:85,max:100, grid:{color:LINE}, ticks:{callback:v=>v+'%'}}, x:{grid:{display:false}} } }
+});
+
+const mostOverdueBranch = [...DATA.branches_all].sort((a,b)=>b.overdue_amount-a.overdue_amount)[0];
+const bestBranch = [...DATA.branches_all].sort((a,b)=>b.collection_rate_latest-a.collection_rate_latest)[0];
+document.getElementById('ovInsights').innerHTML = `
+  <li><span class="tag">Trend</span>Bi-weekly collection rate is at <b>${DATA.trend_bw[DATA.trend_bw.length-1].collection_rate}%</b> as of ${lastBw}, down from ${DATA.trend_bw[0].collection_rate}% back in ${DATA.trend_bw[0].period} — the softening shows up clearly mid-way through the tracking window.</li>
+  <li><span class="tag act">Priority</span><b>${mostOverdueBranch.branch.replace('Samut Sakhon ','')}</b> carries the largest overdue amount right now (${fmtTHB(mostOverdueBranch.overdue_amount)} across ${mostOverdueBranch.overdue_count} loans) — first call on any additional collection resource.</li>
+  <li><span class="tag">Product mix</span>The Monthly product is still small (${DATA.kpis_mo.active_loans} active loans vs ${DATA.kpis_bw.active_loans} bi-weekly) but its overdue rate is proportionally lower — worth watching as it scales rather than assuming it will behave like the bi-weekly book.</li>
+  <li><span class="tag">Bright spot</span><b>${bestBranch.branch.replace('Samut Sakhon ','')}</b> has the best latest-cycle collection rate (${bestBranch.collection_rate_latest}%) of the three branches.</li>
+`;
+
+/* ===================== BRANCH MANAGER ===================== */
+function branchSetFor(p){ return p==='bw'?DATA.branches_bw : p==='mo'?DATA.branches_mo : DATA.branches_all; }
+function renderBranchTab(p){
+  const set = branchSetFor(p);
+  const tbl = document.getElementById('branchTable'); tbl.innerHTML='';
+  set.forEach(b=>{
+    tbl.innerHTML += `<tr>
+      <td class="name">${b.branch.replace('Samut Sakhon ','')}</td>
+      <td>${b.active_loans.toLocaleString()}</td>
+      <td>${fmtTHB(b.portfolio)}</td>
+      <td><span class="pill ${rateCls(b.collection_rate_latest)}">${b.collection_rate_latest}%</span></td>
+      <td>${b.overdue_count} · ${fmtTHB(b.overdue_amount)}</td>
+      <td>${b.chronic_count} · ${fmtTHB(b.chronic_amount)}</td>
+    </tr>`;
+  });
+  if(window._branchRateChart) window._branchRateChart.destroy();
+  window._branchRateChart = safeChart('branchRateChart', {
+    type:'bar', data:{ labels: set.map(b=>b.branch.replace('Samut Sakhon ','')),
+      datasets:[{data: set.map(b=>b.collection_rate_latest), backgroundColor:[NAVY,TEAL,AMBER], borderRadius:3}]},
+    options:{ indexAxis:'y', plugins:{legend:{display:false}}, scales:{x:{min:70,max:100, grid:{color:LINE}, ticks:{callback:v=>v+'%'}}, y:{grid:{display:false}}} }
+  });
+  if(window._branchOverdueChart) window._branchOverdueChart.destroy();
+  window._branchOverdueChart = safeChart('branchOverdueChart', {
+    type:'bar', data:{ labels: set.map(b=>b.branch.replace('Samut Sakhon ','')),
+      datasets:[{data: set.map(b=>b.overdue_amount), backgroundColor: RED, borderRadius:3}]},
+    options:{ plugins:{legend:{display:false}}, scales:{ y:{grid:{color:LINE}, ticks:{callback:v=>fmtTHB(v)}}, x:{grid:{display:false}} } }
+  });
+  const worst = [...set].sort((a,b)=>a.collection_rate_latest-b.collection_rate_latest)[0];
+  const best = [...set].sort((a,b)=>b.collection_rate_latest-a.collection_rate_latest)[0];
+  document.getElementById('bmInsights').innerHTML = `
+    <li><span class="tag act">Focus</span><b>${worst.branch.replace('Samut Sakhon ','')}</b> has the weakest collection rate in this view (${worst.collection_rate_latest}%) with ${worst.chronic_count} chronic cases — review loan-officer caseload there before adding new disbursement targets.</li>
+    <li><span class="tag">Bright spot</span><b>${best.branch.replace('Samut Sakhon ','')}</b> leads at ${best.collection_rate_latest}% — worth a short debrief to see what collection routine differs, and whether it can be replicated elsewhere.</li>
+    <li><span class="tag">Scale check</span>Portfolio size varies noticeably across branches — always weigh the rate against ${fmtTHB(worst.portfolio)}–${fmtTHB(best.portfolio)} of active exposure before reallocating staff.</li>
+  `;
+}
+document.querySelectorAll('#bmProductSeg button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('#bmProductSeg button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active'); renderBranchTab(b.dataset.p);
+  });
+});
+renderBranchTab('all');
+
+/* ===================== LOAN OFFICER ===================== */
+const loSelect = document.getElementById('loSelect');
+DATA.los_all.forEach(l=>{
+  const opt = document.createElement('option'); opt.value=l.lo; opt.textContent = shortLO(l.lo)+' — '+l.branch.replace('Samut Sakhon ','');
+  loSelect.appendChild(opt);
+});
+
+function renderLeaderboard(){
+  const tbl = document.getElementById('loTable'); tbl.innerHTML='';
+  DATA.los_all.forEach(l=>{
+    tbl.innerHTML += `<tr>
+      <td class="name">${shortLO(l.lo)}</td><td>${l.branch.replace('Samut Sakhon ','')}</td>
+      <td>${l.active_loans}</td><td>${fmtTHB(l.portfolio)}</td>
+      <td>${l.overdue_count}</td><td>${l.chronic_count}</td>
+      <td><span class="pill ${rateCls(l.collection_rate)}">${l.collection_rate}%</span></td></tr>`;
+  });
+  if(window._loChart) window._loChart.destroy();
+  window._loChart = safeChart('loChart', {
+    type:'bar', data:{ labels: DATA.los_all.map(l=>shortLO(l.lo)),
+      datasets:[{data: DATA.los_all.map(l=>l.collection_rate),
+        backgroundColor: DATA.los_all.map(l=>l.collection_rate>=93?TEAL:(l.collection_rate>=85?AMBER:RED)), borderRadius:3}]},
+    options:{ indexAxis:'y', plugins:{legend:{display:false}}, scales:{x:{min:0,max:100, grid:{color:LINE}, ticks:{callback:v=>v+'%'}}, y:{grid:{display:false}}} }
+  });
+  const sorted = [...DATA.los_all].sort((a,b)=>a.collection_rate-b.collection_rate);
+  const low = sorted[0], high = sorted[sorted.length-1];
+  document.getElementById('loInsights').innerHTML = `
+    <li><span class="tag act">Coach</span><b>${shortLO(low.lo)}</b> has the lowest collection rate in the province (${low.collection_rate}%, ${low.chronic_count} chronic cases) — worth a short caseload review to see whether specific clients or areas are driving it, especially if the active loan count (${low.active_loans}) is small.</li>
+    <li><span class="tag">Recognize</span><b>${shortLO(high.lo)}</b> leads at ${high.collection_rate}% across ${high.active_loans} active loans.</li>
+    <li><span class="tag">Workload</span>Portfolio size varies widely between officers — before comparing rates head-to-head, check whether low performers are carrying oversized or reassigned caseloads.</li>
+  `;
+}
+renderLeaderboard();
+
+function renderPersonal(loName){
+  const l = DATA.los_all.find(x=>x.lo===loName);
+  if(!l){ document.getElementById('loLeaderboardView').style.display='block'; document.getElementById('loPersonalView').style.display='none'; return; }
+  document.getElementById('loLeaderboardView').style.display='none';
+  document.getElementById('loPersonalView').style.display='block';
+  document.getElementById('loPersonalKpis').innerHTML = `
+    <div class="kpi"><div class="label">My active loans</div><div class="value">${l.active_loans}</div><div class="sub">${l.branch.replace('Samut Sakhon ','')}</div></div>
+    <div class="kpi"><div class="label">My active portfolio</div><div class="value">${fmtTHB(l.portfolio)}</div><div class="sub">disbursed all-time: ${fmtTHB(l.disbursed_alltime)}</div></div>
+    <div class="kpi"><div class="label">My overdue now</div><div class="value">${l.overdue_count}</div><div class="sub">${fmtTHB(l.overdue_amount)}</div></div>
+    <div class="kpi"><div class="label">My collection rate</div><div class="value">${l.collection_rate}%</div><div class="sub ${l.collection_rate>=93?'up':'down'}">${l.chronic_count} chronic cases</div></div>
+  `;
+  const items = DATA.roster.filter(r=>r.lo===loName).sort((a,b)=> (a.type==='overdue'?0:1) - (b.type==='overdue'?0:1) || b.notpaid_count-a.notpaid_count);
+  const box = document.getElementById('loNotifications');
+  if(items.length===0){ box.innerHTML = `<div class="empty-state">No overdue or upcoming-maturity notifications right now — nice work, <b>${shortLO(loName)}</b>.</div>`; return; }
+  box.innerHTML = items.map(it=>`
+    <div class="roster-row">
+      <div class="roster-left">
+        <span class="cn">${it.client_name||'—'} <span class="pill ${it.type==='overdue'?'risk':'warn'}" style="margin-left:6px">${it.type==='overdue'?'Overdue · '+it.notpaid_count+'x missed':'Maturing '+it.loan_end_date}</span></span>
+        <span class="meta">${it.phone||'no phone'} · contract ${it.contract_no} · ${it.product}</span>
+      </div>
+      <div class="roster-right">${fmtTHB(it.loan_amount)}</div>
+    </div>`).join('');
+}
+loSelect.addEventListener('change', e=> renderPersonal(e.target.value));
+
+/* ===================== CUSTOMER SERVICE ===================== */
+document.getElementById('csKpis').innerHTML = `
+  <div class="kpi"><div class="label">Rollover share</div><div class="value">${k.rollover_share_pct}%</div><div class="sub">of all contracts</div></div>
+  <div class="kpi"><div class="label">Total disbursed, all-time</div><div class="value">${fmtTHB(k.total_disbursed_alltime)}</div><div class="sub">${k.total_loans_ever.toLocaleString()} contracts</div></div>
+  <div class="kpi"><div class="label">Closed contracts</div><div class="value">${k.closed_loans.toLocaleString()}</div><div class="sub">${Math.round(100*k.closed_loans/k.total_loans_ever)}% of all loans issued</div></div>
+  <div class="kpi"><div class="label">Avg loan size</div><div class="value">${fmtTHB(k.avg_loan_size)}</div><div class="sub">across both products</div></div>
+`;
+safeChart('rolloverChart', {
+  type:'doughnut', data:{ labels: DATA.first_vs_rollover.map(f=>f['1st Loan vs Rollover']),
+    datasets:[{data: DATA.first_vs_rollover.map(f=>f.count), backgroundColor:[AMBER,NAVY]}]},
+  options:{plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12}}}}
+});
+safeChart('cycleChart', {
+  type:'bar', data:{ labels: Object.keys(DATA.loan_cycle), datasets:[{data: Object.values(DATA.loan_cycle), backgroundColor: TEAL, borderRadius:3}]},
+  options:{ plugins:{legend:{display:false}}, scales:{ y:{grid:{color:LINE}}, x:{grid:{display:false}, ticks:{font:{size:10}}} } }
+});
+document.getElementById('csInsights').innerHTML = `
+  <li><span class="tag">Retention</span>${k.rollover_share_pct}% of contracts are repeat clients — renewal experience matters more to future volume than acquiring new borrowers.</li>
+  <li><span class="tag act">Proactive outreach</span>With ${k.overdue_now} loans currently overdue and ${k.chronic_loans} flagged chronic, a same-day courtesy call at the first missed cycle is the highest-leverage touchpoint available.</li>
+  <li><span class="tag">Cycle mix</span>Loan cycle counts drop off after cycle 4 — worth understanding where clients typically stop renewing.</li>
+`;
+
+/* ===================== FIELD COLLECTION ===================== */
+document.getElementById('fcKpis').innerHTML = `
+  <div class="kpi"><div class="label">Overdue this period</div><div class="value">${k.overdue_now}</div><div class="sub">${fmtTHB(k.overdue_amount)}</div></div>
+  <div class="kpi"><div class="label">Chronic (2+ misses)</div><div class="value">${k.chronic_loans}</div><div class="sub">${fmtTHB(k.chronic_amount)}</div></div>
+  <div class="kpi"><div class="label">Maturing within 15 days</div><div class="value">${DATA.roster.filter(r=>r.type==='upcoming_maturity').length}</div><div class="sub">final installment reminders</div></div>
+  <div class="kpi"><div class="label">Total notifications</div><div class="value">${DATA.roster.length}</div><div class="sub">across all officers</div></div>
+`;
+const fcBranchSelect = document.getElementById('fcBranchSelect');
+[...new Set(DATA.roster.map(r=>r.branch))].sort().forEach(b=>{
+  const opt=document.createElement('option'); opt.value=b; opt.textContent=b.replace('Samut Sakhon ',''); fcBranchSelect.appendChild(opt);
+});
+let fcType='all', fcBranch='', fcSearch='';
+function renderFC(){
+  let items = DATA.roster.filter(r => (fcType==='all'||r.type===fcType) && (!fcBranch||r.branch===fcBranch));
+  if(fcSearch){
+    const s=fcSearch.toLowerCase();
+    items = items.filter(r => (r.client_name||'').toLowerCase().includes(s) || shortLO(r.lo).toLowerCase().includes(s) || r.contract_no.includes(s));
+  }
+  items = items.sort((a,b)=> b.notpaid_count-a.notpaid_count);
+  const box = document.getElementById('fcList');
+  if(items.length===0){ box.innerHTML = `<div class="empty-state">No matching cases.</div>`; return; }
+  box.innerHTML = items.slice(0,150).map(it=>`
+    <div class="roster-row">
+      <div class="roster-left">
+        <span class="cn">${it.client_name||'—'} <span class="pill ${it.type==='overdue'?'risk':'warn'}" style="margin-left:6px">${it.type==='overdue'?'Overdue · '+it.notpaid_count+'x':'Maturing '+it.loan_end_date}</span> <span class="pill prod">${it.product}</span></span>
+        <span class="meta">${it.phone||'no phone'} · contract ${it.contract_no} · officer ${shortLO(it.lo)} · ${it.branch.replace('Samut Sakhon ','')}</span>
+      </div>
+      <div class="roster-right">${fmtTHB(it.loan_amount)}</div>
+    </div>`).join('') + (items.length>150 ? `<div class="empty-state">Showing first 150 of ${items.length} matches — narrow with branch/search.</div>` : '');
+}
+document.querySelectorAll('#fcTypeSeg button').forEach(b=>{
+  b.addEventListener('click',()=>{ document.querySelectorAll('#fcTypeSeg button').forEach(x=>x.classList.remove('active')); b.classList.add('active'); fcType=b.dataset.t; renderFC(); });
+});
+fcBranchSelect.addEventListener('change', e=>{ fcBranch=e.target.value; renderFC(); });
+document.getElementById('fcSearch').addEventListener('input', e=>{ fcSearch=e.target.value; renderFC(); });
+renderFC();
+
+const branchWorstOverdue = [...DATA.branches_all].sort((a,b)=>b.overdue_amount-a.overdue_amount)[0];
+document.getElementById('fcInsights').innerHTML = `
+  <li><span class="tag act">Route priority</span><b>${branchWorstOverdue.branch.replace('Samut Sakhon ','')}</b> has the most overdue value right now (${fmtTHB(branchWorstOverdue.overdue_amount)}) — weight route planning here first when field capacity is limited.</li>
+  <li><span class="tag">Segment</span>Treat first-time misses and chronic (2+ miss) cases as different visit types: a reminder call for the former, a firmer in-person conversation and revised payment plan for the latter.</li>
+  <li><span class="tag act">Escalation rule</span>Flag any loan crossing 3 missed cycles for supervisor review before it heads toward write-off — earlier intervention costs far less than recovery after the fact.</li>
+  <li><span class="tag">Maturity reminders</span>${DATA.roster.filter(r=>r.type==='upcoming_maturity').length} loans are reaching their final installment within 15 days — a heads-up call before the due date reduces last-cycle misses.</li>
+`;
+} // end renderAll()
+</script>
+</body>
+</html>
