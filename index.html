@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
 <title>Samut Sakhon — Collection Ledger (Live)</title>
@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Collection">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Sans+Myanmar:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <style>
@@ -23,15 +23,22 @@
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
-  body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans', sans-serif;-webkit-font-smoothing:antialiased;}
+  body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans','Noto Sans Thai','Noto Sans Myanmar', sans-serif;-webkit-font-smoothing:antialiased;}
+  body[data-lang="th"]{font-family:'Noto Sans Thai','IBM Plex Sans',sans-serif;}
+  body[data-lang="my"]{font-family:'Noto Sans Myanmar','IBM Plex Sans',sans-serif;}
   .wrap{max-width:1180px;margin:0 auto;padding:28px 24px 80px;}
   header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid var(--navy);padding-bottom:18px;margin-bottom:6px;flex-wrap:wrap;gap:14px;}
   .brand-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin-bottom:6px;display:flex;align-items:center;gap:8px;}
   .live-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);display:inline-block;animation:pulse 2s infinite;}
   @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
   h1{font-family:'Fraunces',serif;font-weight:600;font-size:32px;margin:0;color:var(--navy);letter-spacing:-0.01em;}
+  body[data-lang="th"] h1, body[data-lang="my"] h1{font-family:'Noto Sans Thai','Noto Sans Myanmar',sans-serif;}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
   .header-meta{text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--slate);line-height:1.6;}
   .header-meta b{color:var(--navy);}
+  .lang-switch{display:flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;}
+  .lang-switch button{border:none;background:var(--card);padding:5px 10px;font-size:11.5px;font-weight:700;color:var(--slate);cursor:pointer;font-family:'IBM Plex Mono',monospace;}
+  .lang-switch button.active{background:var(--navy);color:#fff;}
   .stale-note{background:var(--amber-soft);color:#8a5c17;border:1px solid #EBD4A3;border-radius:4px;padding:8px 12px;font-size:12px;margin:14px 0 20px;font-family:'IBM Plex Mono',monospace;}
 
   nav.tabs{display:flex;gap:2px;margin-bottom:22px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
@@ -45,22 +52,24 @@
   .toolbar{display:flex;gap:10px;align-items:center;margin-bottom:20px;flex-wrap:wrap;}
   .toolbar label{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--slate);font-weight:600;margin-right:2px;}
   select, input[type=text]{
-    font-family:'IBM Plex Sans',sans-serif;font-size:13px;padding:7px 10px;border:1px solid var(--line);
+    font-family:inherit;font-size:13px;padding:7px 10px;border:1px solid var(--line);
     border-radius:4px;background:var(--card);color:var(--ink);
   }
   .seg{display:flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;}
-  .seg button{border:none;background:var(--card);padding:7px 14px;font-size:12.5px;font-weight:600;color:var(--slate);cursor:pointer;font-family:'IBM Plex Sans',sans-serif;}
+  .seg button{border:none;background:var(--card);padding:7px 14px;font-size:12.5px;font-weight:600;color:var(--slate);cursor:pointer;font-family:inherit;}
   .seg button.active{background:var(--navy);color:#fff;}
 
   .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:24px;}
   .kpi{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:16px 18px;}
   .kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--slate);font-weight:600;margin-bottom:8px;}
   .kpi .value{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--navy);line-height:1.1;}
+  body[data-lang="th"] .kpi .value, body[data-lang="my"] .kpi .value{font-family:'Noto Sans Thai','Noto Sans Myanmar',sans-serif;}
   .kpi .sub{font-family:'IBM Plex Mono',monospace;font-size:11.5px;margin-top:6px;color:var(--slate);}
   .kpi .sub.up{color:var(--teal);} .kpi .sub.down{color:var(--red);}
 
   .section{margin-bottom:30px;}
   .section-title{font-family:'Fraunces',serif;font-size:19px;font-weight:600;color:var(--navy);margin:0 0 4px;display:flex;align-items:baseline;gap:8px;}
+  body[data-lang="th"] .section-title, body[data-lang="my"] .section-title{font-family:'Noto Sans Thai','Noto Sans Myanmar',sans-serif;}
   .section-title .num{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--amber);font-weight:600;}
   .section-desc{font-size:13px;color:var(--slate);margin:0 0 14px;max-width:640px;}
   .grid-2{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;}
@@ -103,7 +112,6 @@
 
   footer{margin-top:40px;font-size:11.5px;color:var(--slate);font-family:'IBM Plex Mono',monospace;text-align:center;}
 
-  /* ---- Install hint banner ---- */
   .install-banner{
     display:none;background:var(--navy-soft);color:#EDEFF3;border-radius:6px;
     padding:12px 14px;margin-bottom:16px;font-size:12.5px;line-height:1.5;
@@ -117,7 +125,6 @@
   }
   .install-banner .go-btn{background:var(--amber);border-color:var(--amber);color:#101B33;font-weight:700;}
 
-  /* ---- Bottom nav (mobile app-style) ---- */
   .bottom-nav{
     display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;
     background:var(--card);border-top:1px solid var(--line);
@@ -134,11 +141,11 @@
   .bottom-nav button.active{color:var(--navy);}
   .bottom-nav button.active .ic{background:var(--amber);}
 
-  /* ---- Mobile breakpoint ---- */
   @media(max-width:720px){
     .wrap{padding:16px 14px calc(84px + env(safe-area-inset-bottom));}
     header{align-items:flex-start;padding-bottom:14px;}
     h1{font-size:23px;}
+    .header-right{align-items:flex-start;width:100%;}
     .header-meta{text-align:left;font-size:11px;}
     .brand-eyebrow{font-size:9.5px;}
     nav.tabs{display:none;}
@@ -159,7 +166,6 @@
     .stale-note{font-size:11px;}
   }
 
-  /* ---- Loading / error states ---- */
   .load-screen{padding:80px 20px;text-align:center;}
   .spinner{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--amber);border-radius:50%;margin:0 auto 16px;animation:spin .8s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
@@ -170,48 +176,55 @@
   .error-screen button{background:var(--navy);color:#fff;border:none;border-radius:4px;padding:9px 16px;font-weight:600;font-size:12.5px;cursor:pointer;}
 </style>
 </head>
-<body>
+<body id="bodyEl">
 <div class="wrap">
   <header>
     <div>
-      <div class="brand-eyebrow"><span class="live-dot"></span>Live pull · Google Drive · Samut Sakhon Province</div>
-      <h1>Branch Collection Dashboard</h1>
+      <div class="brand-eyebrow"><span class="live-dot"></span><span data-i18n="brand_eyebrow"></span></div>
+      <h1 data-i18n="h1"></h1>
     </div>
-    <div class="header-meta" id="headerMeta"></div>
+    <div class="header-right">
+      <div class="lang-switch" id="langSwitch">
+        <button data-lang-btn="en">EN</button>
+        <button data-lang-btn="th">ไทย</button>
+        <button data-lang-btn="my">မြန်မာ</button>
+      </div>
+      <div class="header-meta" id="headerMeta"></div>
+    </div>
   </header>
   <div class="stale-note" id="staleNote"></div>
   <div class="install-banner" id="installBanner">
     <span id="installText"></span>
-    <button id="installDismiss">Dismiss</button>
-    <button class="go-btn" id="installGo" style="display:none">Add</button>
+    <button id="installDismiss" data-i18n="install_dismiss"></button>
+    <button class="go-btn" id="installGo" style="display:none" data-i18n="install_add"></button>
   </div>
 
   <div id="loadingScreen" class="load-screen">
     <div class="spinner"></div>
-    <div class="msg">Pulling latest data from Google Sheets…</div>
+    <div class="msg" data-i18n="loading_msg"></div>
   </div>
   <div id="errorScreen" class="error-screen" style="display:none">
-    <h3>Couldn't load live data</h3>
-    <p id="errorMsg">The published sheet links may need to be checked, or your connection dropped.</p>
-    <button onclick="boot()">Retry</button>
+    <h3 data-i18n="error_title"></h3>
+    <p id="errorMsg" data-i18n="error_default"></p>
+    <button onclick="boot()" data-i18n="error_retry"></button>
   </div>
 
   <div id="appContent" style="display:none">
   <nav class="tabs" id="tabs">
-    <button data-tab="overview" class="active">Overview</button>
-    <button data-tab="bm">Branch Manager</button>
-    <button data-tab="lo">My Portfolio (Loan Officer)</button>
-    <button data-tab="cs">Customer Service</button>
-    <button data-tab="fc">Field Collection</button>
+    <button data-tab="overview" class="active" data-i18n="nav_overview"></button>
+    <button data-tab="bm" data-i18n="nav_bm"></button>
+    <button data-tab="lo" data-i18n="nav_lo"></button>
+    <button data-tab="cs" data-i18n="nav_cs"></button>
+    <button data-tab="fc" data-i18n="nav_fc"></button>
   </nav>
 
   <div class="bottom-nav" id="bottomNav">
     <div class="bottom-nav-row">
-      <button data-tab="overview" class="active"><span class="ic"></span>Overview</button>
-      <button data-tab="bm"><span class="ic"></span>Branch</button>
-      <button data-tab="lo"><span class="ic"></span>Mine</button>
-      <button data-tab="cs"><span class="ic"></span>Service</button>
-      <button data-tab="fc"><span class="ic"></span>Field</button>
+      <button data-tab="overview" class="active"><span class="ic"></span><span data-i18n="navs_overview"></span></button>
+      <button data-tab="bm"><span class="ic"></span><span data-i18n="navs_bm"></span></button>
+      <button data-tab="lo"><span class="ic"></span><span data-i18n="navs_lo"></span></button>
+      <button data-tab="cs"><span class="ic"></span><span data-i18n="navs_cs"></span></button>
+      <button data-tab="fc"><span class="ic"></span><span data-i18n="navs_fc"></span></button>
     </div>
   </div>
 
@@ -221,27 +234,27 @@
 
     <div class="grid-2 section">
       <div class="card">
-        <h2 class="section-title" style="font-size:16px"><span class="num">01</span> Product mix</h2>
-        <p class="section-desc" style="margin-bottom:10px">Bi-weekly (due 15th &amp; 30th) vs Monthly (due 30th only).</p>
+        <h2 class="section-title" style="font-size:16px"><span class="num">01</span> <span data-i18n="section_product_mix"></span></h2>
+        <p class="section-desc" style="margin-bottom:10px" data-i18n="section_product_mix_desc"></p>
         <table>
-          <thead><tr><th>Product</th><th>Active loans</th><th>Portfolio</th><th>Overdue now</th><th>Chronic</th></tr></thead>
+          <thead><tr><th data-i18n="th_product"></th><th data-i18n="th_active_loans"></th><th data-i18n="th_portfolio"></th><th data-i18n="th_overdue_now"></th><th data-i18n="th_chronic"></th></tr></thead>
           <tbody id="productTable"></tbody>
         </table>
       </div>
       <div class="card">
-        <h2 class="section-title" style="font-size:16px"><span class="num">02</span> Portfolio by branch</h2>
+        <h2 class="section-title" style="font-size:16px"><span class="num">02</span> <span data-i18n="section_portfolio_branch"></span></h2>
         <div class="chart-wrap"><canvas id="branchChart"></canvas></div>
       </div>
     </div>
 
     <div class="section">
-      <h2 class="section-title"><span class="num">03</span> Bi-weekly collection rate trend</h2>
-      <p class="section-desc">Share of due installments paid on time each cycle (bi-weekly product — the larger, higher-frequency book).</p>
+      <h2 class="section-title"><span class="num">03</span> <span data-i18n="section_trend"></span></h2>
+      <p class="section-desc" data-i18n="section_trend_desc"></p>
       <div class="card"><div class="chart-wrap"><canvas id="trendChart"></canvas></div></div>
     </div>
 
     <div class="insight-panel">
-      <div class="insight-head"><span class="dot"></span><span class="t">AI Summary — Whole Portfolio</span></div>
+      <div class="insight-head"><span class="dot"></span><span class="t" data-i18n="insight_overview_header"></span></div>
       <ul class="insight-list" id="ovInsights"></ul>
     </div>
   </div>
@@ -249,34 +262,34 @@
   <!-- ================= BRANCH MANAGER ================= -->
   <div class="panel" id="panel-bm">
     <div class="toolbar">
-      <label>Product</label>
+      <label data-i18n="toolbar_product"></label>
       <div class="seg" id="bmProductSeg">
-        <button data-p="all" class="active">All</button>
-        <button data-p="bw">Bi-weekly</button>
-        <button data-p="mo">Monthly</button>
+        <button data-p="all" class="active" data-i18n="seg_all"></button>
+        <button data-p="bw" data-i18n="label_bw"></button>
+        <button data-p="mo" data-i18n="label_mo"></button>
       </div>
     </div>
     <div class="section">
-      <h2 class="section-title"><span class="num">01</span> Branch scorecard</h2>
+      <h2 class="section-title"><span class="num">01</span> <span data-i18n="section_branch_scorecard"></span></h2>
       <div class="card">
         <table>
-          <thead><tr><th>Branch</th><th>Active loans</th><th>Active portfolio</th><th>Collection rate</th><th>Overdue now</th><th>Chronic (2+ misses)</th></tr></thead>
+          <thead><tr><th data-i18n="th_branch"></th><th data-i18n="th_active_loans"></th><th data-i18n="th_active_portfolio"></th><th data-i18n="th_collection_rate"></th><th data-i18n="th_overdue_now"></th><th data-i18n="th_chronic_misses"></th></tr></thead>
           <tbody id="branchTable"></tbody>
         </table>
       </div>
     </div>
     <div class="grid-2 section">
       <div class="card">
-        <h2 class="section-title" style="font-size:16px"><span class="num">02</span> Collection rate by branch</h2>
+        <h2 class="section-title" style="font-size:16px"><span class="num">02</span> <span data-i18n="section_rate_by_branch"></span></h2>
         <div class="chart-wrap"><canvas id="branchRateChart"></canvas></div>
       </div>
       <div class="card">
-        <h2 class="section-title" style="font-size:16px"><span class="num">03</span> Overdue amount by branch</h2>
+        <h2 class="section-title" style="font-size:16px"><span class="num">03</span> <span data-i18n="section_overdue_by_branch"></span></h2>
         <div class="chart-wrap"><canvas id="branchOverdueChart"></canvas></div>
       </div>
     </div>
     <div class="insight-panel">
-      <div class="insight-head"><span class="dot"></span><span class="t">AI Suggestions — Branch Manager</span></div>
+      <div class="insight-head"><span class="dot"></span><span class="t" data-i18n="insight_bm_header"></span></div>
       <ul class="insight-list" id="bmInsights"></ul>
     </div>
   </div>
@@ -284,22 +297,22 @@
   <!-- ================= LOAN OFFICER ================= -->
   <div class="panel" id="panel-lo">
     <div class="toolbar">
-      <label>View</label>
-      <select id="loSelect"><option value="">— All officers (leaderboard) —</option></select>
+      <label data-i18n="toolbar_view"></label>
+      <select id="loSelect"><option value="" data-i18n="select_all_officers"></option></select>
     </div>
 
     <div id="loLeaderboardView">
       <div class="section">
-        <h2 class="section-title"><span class="num">01</span> Officer performance leaderboard</h2>
-        <p class="section-desc">Ranked by collection rate on the latest recorded cycle. Officers with fewer than 3 active loans are excluded to avoid small-sample noise. Select a name above to see an individual's own portfolio and notifications.</p>
-        <div class="card"><table><thead><tr><th>Loan officer</th><th>Branch</th><th>Active loans</th><th>Portfolio</th><th>Overdue</th><th>Chronic</th><th>Collection rate</th></tr></thead><tbody id="loTable"></tbody></table></div>
+        <h2 class="section-title"><span class="num">01</span> <span data-i18n="section_leaderboard"></span></h2>
+        <p class="section-desc" data-i18n="section_leaderboard_desc"></p>
+        <div class="card"><table><thead><tr><th data-i18n="th_loan_officer"></th><th data-i18n="th_branch"></th><th data-i18n="th_active_loans"></th><th data-i18n="th_portfolio"></th><th data-i18n="th_overdue"></th><th data-i18n="th_chronic"></th><th data-i18n="th_collection_rate"></th></tr></thead><tbody id="loTable"></tbody></table></div>
       </div>
       <div class="section">
-        <h2 class="section-title"><span class="num">02</span> Rate by officer</h2>
+        <h2 class="section-title"><span class="num">02</span> <span data-i18n="section_rate_by_officer"></span></h2>
         <div class="card"><div class="chart-wrap tall"><canvas id="loChart"></canvas></div></div>
       </div>
       <div class="insight-panel">
-        <div class="insight-head"><span class="dot"></span><span class="t">AI Suggestions — Loan Officer Coaching</span></div>
+        <div class="insight-head"><span class="dot"></span><span class="t" data-i18n="insight_lo_header"></span></div>
         <ul class="insight-list" id="loInsights"></ul>
       </div>
     </div>
@@ -307,8 +320,8 @@
     <div id="loPersonalView" style="display:none">
       <div class="kpi-row" id="loPersonalKpis"></div>
       <div class="section">
-        <h2 class="section-title"><span class="num">01</span> My notifications</h2>
-        <p class="section-desc">Clients on your portfolio who are overdue right now, or whose loan is maturing within 15 days.</p>
+        <h2 class="section-title"><span class="num">01</span> <span data-i18n="section_my_notifications"></span></h2>
+        <p class="section-desc" data-i18n="section_my_notifications_desc"></p>
         <div class="card" style="padding:6px 18px" id="loNotifications"></div>
       </div>
     </div>
@@ -319,16 +332,16 @@
     <div class="kpi-row" id="csKpis"></div>
     <div class="grid-2 section">
       <div class="card">
-        <h2 class="section-title" style="font-size:16px"><span class="num">01</span> First loan vs. rollover</h2>
+        <h2 class="section-title" style="font-size:16px"><span class="num">01</span> <span data-i18n="section_first_vs_rollover"></span></h2>
         <div class="chart-wrap"><canvas id="rolloverChart"></canvas></div>
       </div>
       <div class="card">
-        <h2 class="section-title" style="font-size:16px"><span class="num">02</span> Loan cycle distribution</h2>
+        <h2 class="section-title" style="font-size:16px"><span class="num">02</span> <span data-i18n="section_loan_cycle"></span></h2>
         <div class="chart-wrap"><canvas id="cycleChart"></canvas></div>
       </div>
     </div>
     <div class="insight-panel">
-      <div class="insight-head"><span class="dot"></span><span class="t">AI Suggestions — Customer Service</span></div>
+      <div class="insight-head"><span class="dot"></span><span class="t" data-i18n="insight_cs_header"></span></div>
       <ul class="insight-list" id="csInsights"></ul>
     </div>
   </div>
@@ -337,31 +350,204 @@
   <div class="panel" id="panel-fc">
     <div class="kpi-row" id="fcKpis"></div>
     <div class="toolbar">
-      <label>Branch</label>
-      <select id="fcBranchSelect"><option value="">All branches</option></select>
-      <label>Type</label>
+      <label data-i18n="toolbar_branch"></label>
+      <select id="fcBranchSelect"><option value="" data-i18n="all_branches"></option></select>
+      <label data-i18n="toolbar_type"></label>
       <div class="seg" id="fcTypeSeg">
-        <button data-t="all" class="active">All</button>
-        <button data-t="overdue">Overdue</button>
-        <button data-t="upcoming_maturity">Maturing soon</button>
+        <button data-t="all" class="active" data-i18n="seg_all"></button>
+        <button data-t="overdue" data-i18n="seg_overdue"></button>
+        <button data-t="upcoming_maturity" data-i18n="seg_maturing"></button>
       </div>
-      <input type="text" id="fcSearch" placeholder="Search client, officer, contract no…" style="flex:1;min-width:180px">
+      <input type="text" id="fcSearch" data-i18n-placeholder="search_placeholder" style="flex:1;min-width:180px">
     </div>
     <div class="section">
-      <h2 class="section-title"><span class="num">01</span> Field visit list</h2>
+      <h2 class="section-title"><span class="num">01</span> <span data-i18n="section_field_visit"></span></h2>
       <div class="card" style="padding:6px 18px" id="fcList"></div>
     </div>
     <div class="insight-panel">
-      <div class="insight-head"><span class="dot"></span><span class="t">AI Suggestions — Field Collection</span></div>
+      <div class="insight-head"><span class="dot"></span><span class="t" data-i18n="insight_fc_header"></span></div>
       <ul class="insight-list" id="fcInsights"></ul>
     </div>
   </div>
 
-  <footer id="footerNote">Live-pulled from "Bi-weekly Collection All" &amp; "Monthly Collection All" · figures rounded to nearest ฿100</footer>
+  <footer id="footerNote" data-i18n="footer_note"></footer>
   </div><!-- /appContent -->
 </div>
 
 <script>
+/* ===================== TRANSLATIONS ===================== */
+const TR = {
+en: {
+  brand_eyebrow: "Live data · Samut Sakhon Province",
+  h1: "Branch Collection Dashboard",
+  install_dismiss: "Dismiss", install_add: "Add",
+  loading_msg: "Pulling latest data from Google Sheets…",
+  error_title: "Couldn't load live data",
+  error_default: "The published sheet links may need to be checked, or your connection dropped.",
+  error_retry: "Retry",
+  nav_overview: "Overview", nav_bm: "Branch Manager", nav_lo: "My Portfolio (Loan Officer)", nav_cs: "Customer Service", nav_fc: "Field Collection",
+  navs_overview: "Overview", navs_bm: "Branch", navs_lo: "Mine", navs_cs: "Service", navs_fc: "Field",
+  section_product_mix: "Product mix",
+  section_product_mix_desc: "Bi-weekly (due 15th & 30th) vs Monthly (due 30th only).",
+  th_product: "Product", th_active_loans: "Active loans", th_portfolio: "Portfolio", th_overdue_now: "Overdue now", th_chronic: "Chronic",
+  section_portfolio_branch: "Portfolio by branch",
+  section_trend: "Bi-weekly collection rate trend",
+  section_trend_desc: "Share of due installments paid on time each cycle (bi-weekly product — the larger, higher-frequency book).",
+  insight_overview_header: "AI Summary — Whole Portfolio",
+  label_bw: "Bi-weekly", label_mo: "Monthly",
+  toolbar_product: "Product", seg_all: "All",
+  section_branch_scorecard: "Branch scorecard",
+  th_branch: "Branch", th_active_portfolio: "Active portfolio", th_collection_rate: "Collection rate", th_chronic_misses: "Chronic (2+ misses)",
+  section_rate_by_branch: "Collection rate by branch", section_overdue_by_branch: "Overdue amount by branch",
+  insight_bm_header: "AI Suggestions — Branch Manager",
+  toolbar_view: "View", select_all_officers: "— All officers (leaderboard) —",
+  section_leaderboard: "Officer performance leaderboard",
+  section_leaderboard_desc: "Ranked by collection rate on the latest recorded cycle. Officers with fewer than 3 active loans are excluded to avoid small-sample noise. Select a name above to see an individual's own portfolio and notifications.",
+  th_loan_officer: "Loan officer", th_overdue: "Overdue",
+  section_rate_by_officer: "Rate by officer",
+  insight_lo_header: "AI Suggestions — Loan Officer Coaching",
+  section_my_notifications: "My notifications",
+  section_my_notifications_desc: "Clients on your portfolio who are overdue right now, or whose loan is maturing within 15 days.",
+  kpi_my_active_loans: "My active loans", kpi_my_active_portfolio: "My active portfolio", kpi_my_overdue: "My overdue now", kpi_my_rate: "My collection rate",
+  kpi_active_portfolio: "Active portfolio", kpi_latest_rate: "Latest collection rate", kpi_overdue: "Currently overdue",
+  kpi_chronic: "Chronic delinquents", kpi_rollover: "Rollover share",
+  kpi_total_disbursed: "Total disbursed, all-time", kpi_closed_contracts: "Closed contracts", kpi_avg_loan: "Avg loan size",
+  section_first_vs_rollover: "First loan vs. rollover", section_loan_cycle: "Loan cycle distribution",
+  insight_cs_header: "AI Suggestions — Customer Service",
+  kpi_overdue_period: "Overdue this period", kpi_maturing_15: "Maturing within 15 days", kpi_total_notifications: "Total notifications",
+  toolbar_branch: "Branch", all_branches: "All branches", toolbar_type: "Type",
+  seg_overdue: "Overdue", seg_maturing: "Maturing soon", search_placeholder: "Search client, officer, contract no…",
+  section_field_visit: "Field visit list", empty_no_cases: "No matching cases.",
+  insight_fc_header: "AI Suggestions — Field Collection",
+  footer_note: 'Live-pulled from "Bi-weekly Collection All" & "Monthly Collection All" · figures rounded to nearest ฿100'
+},
+th: {
+  brand_eyebrow: "ข้อมูลสด · จังหวัดสมุทรสาคร",
+  h1: "แดชบอร์ดการเก็บเงินสาขา",
+  install_dismiss: "ปิด", install_add: "เพิ่ม",
+  loading_msg: "กำลังดึงข้อมูลล่าสุดจาก Google ชีต…",
+  error_title: "ไม่สามารถโหลดข้อมูลสดได้",
+  error_default: "ลิงก์ชีตที่เผยแพร่อาจต้องตรวจสอบ หรือการเชื่อมต่อของคุณขาดหาย",
+  error_retry: "ลองใหม่",
+  nav_overview: "ภาพรวม", nav_bm: "ผู้จัดการสาขา", nav_lo: "พอร์ตของฉัน (เจ้าหน้าที่สินเชื่อ)", nav_cs: "บริการลูกค้า", nav_fc: "ทีมเก็บเงินภาคสนาม",
+  navs_overview: "ภาพรวม", navs_bm: "สาขา", navs_lo: "ของฉัน", navs_cs: "บริการ", navs_fc: "สนาม",
+  section_product_mix: "สัดส่วนผลิตภัณฑ์",
+  section_product_mix_desc: "รายปักษ์ (ครบกำหนดวันที่ 15 และ 30) เทียบกับรายเดือน (ครบกำหนดวันที่ 30 เท่านั้น)",
+  th_product: "ผลิตภัณฑ์", th_active_loans: "สินเชื่อที่ยังไม่ปิด", th_portfolio: "พอร์ตสินเชื่อ", th_overdue_now: "ค้างชำระตอนนี้", th_chronic: "ค้างเรื้อรัง",
+  section_portfolio_branch: "พอร์ตสินเชื่อแยกตามสาขา",
+  section_trend: "แนวโน้มอัตราการเก็บเงินรายปักษ์",
+  section_trend_desc: "สัดส่วนงวดที่ครบกำหนดซึ่งชำระตรงเวลาในแต่ละรอบ (ผลิตภัณฑ์รายปักษ์ ซึ่งเป็นพอร์ตที่ใหญ่กว่าและมีความถี่สูงกว่า)",
+  insight_overview_header: "สรุปโดย AI — พอร์ตทั้งหมด",
+  label_bw: "รายปักษ์", label_mo: "รายเดือน",
+  toolbar_product: "ผลิตภัณฑ์", seg_all: "ทั้งหมด",
+  section_branch_scorecard: "การ์ดคะแนนสาขา",
+  th_branch: "สาขา", th_active_portfolio: "พอร์ตที่ยังไม่ปิด", th_collection_rate: "อัตราการเก็บเงิน", th_chronic_misses: "ค้างเรื้อรัง (พลาด 2 ครั้งขึ้นไป)",
+  section_rate_by_branch: "อัตราการเก็บเงินแยกตามสาขา", section_overdue_by_branch: "ยอดค้างชำระแยกตามสาขา",
+  insight_bm_header: "คำแนะนำจาก AI — ผู้จัดการสาขา",
+  toolbar_view: "มุมมอง", select_all_officers: "— เจ้าหน้าที่ทั้งหมด (ตารางอันดับ) —",
+  section_leaderboard: "ตารางอันดับผลงานเจ้าหน้าที่",
+  section_leaderboard_desc: "จัดอันดับตามอัตราการเก็บเงินในรอบล่าสุดที่บันทึกไว้ เจ้าหน้าที่ที่มีสินเชื่อยังไม่ปิดน้อยกว่า 3 รายการจะไม่ถูกนับรวม เพื่อหลีกเลี่ยงความคลาดเคลื่อนจากตัวอย่างขนาดเล็ก เลือกชื่อด้านบนเพื่อดูพอร์ตและการแจ้งเตือนของแต่ละบุคคล",
+  th_loan_officer: "เจ้าหน้าที่สินเชื่อ", th_overdue: "ค้างชำระ",
+  section_rate_by_officer: "อัตราแยกตามเจ้าหน้าที่",
+  insight_lo_header: "คำแนะนำจาก AI — การโค้ชเจ้าหน้าที่สินเชื่อ",
+  section_my_notifications: "การแจ้งเตือนของฉัน",
+  section_my_notifications_desc: "ลูกค้าในพอร์ตของคุณที่ค้างชำระอยู่ตอนนี้ หรือสินเชื่อที่ครบกำหนดภายใน 15 วัน",
+  kpi_my_active_loans: "สินเชื่อที่ยังไม่ปิดของฉัน", kpi_my_active_portfolio: "พอร์ตที่ยังไม่ปิดของฉัน", kpi_my_overdue: "ยอดค้างชำระของฉันตอนนี้", kpi_my_rate: "อัตราการเก็บเงินของฉัน",
+  kpi_active_portfolio: "พอร์ตที่ยังไม่ปิด", kpi_latest_rate: "อัตราการเก็บเงินล่าสุด", kpi_overdue: "ค้างชำระตอนนี้",
+  kpi_chronic: "ลูกหนี้ค้างเรื้อรัง", kpi_rollover: "สัดส่วนสินเชื่อต่อสัญญา",
+  kpi_total_disbursed: "ยอดปล่อยสินเชื่อสะสมทั้งหมด", kpi_closed_contracts: "สัญญาที่ปิดแล้ว", kpi_avg_loan: "ขนาดสินเชื่อเฉลี่ย",
+  section_first_vs_rollover: "สินเชื่อครั้งแรก เทียบกับ สินเชื่อต่อสัญญา", section_loan_cycle: "การกระจายรอบสินเชื่อ",
+  insight_cs_header: "คำแนะนำจาก AI — บริการลูกค้า",
+  kpi_overdue_period: "ค้างชำระรอบนี้", kpi_maturing_15: "ครบกำหนดภายใน 15 วัน", kpi_total_notifications: "การแจ้งเตือนทั้งหมด",
+  toolbar_branch: "สาขา", all_branches: "ทุกสาขา", toolbar_type: "ประเภท",
+  seg_overdue: "ค้างชำระ", seg_maturing: "ใกล้ครบกำหนด", search_placeholder: "ค้นหาลูกค้า เจ้าหน้าที่ หรือเลขที่สัญญา…",
+  section_field_visit: "รายชื่อลงพื้นที่", empty_no_cases: "ไม่พบรายการที่ตรงกัน",
+  insight_fc_header: "คำแนะนำจาก AI — ทีมเก็บเงินภาคสนาม",
+  footer_note: 'ดึงข้อมูลสดจาก "Bi-weekly Collection All" และ "Monthly Collection All" · ตัวเลขปัดเศษเป็นหลัก 100 บาท'
+},
+my: {
+  brand_eyebrow: "တိုက်ရိုက်ဒေတာ · စမွတ်စခွန်ခရိုင်",
+  h1: "ဌာနခွဲ ကျပ်ငွေကောက်ခံမှု ဒက်ရှ်ဘုတ်",
+  install_dismiss: "ပယ်ဖျက်", install_add: "ထည့်ရန်",
+  loading_msg: "Google Sheets မှ နောက်ဆုံးဒေတာကို ရယူနေသည်…",
+  error_title: "တိုက်ရိုက်ဒေတာကို ဖွင့်၍မရပါ",
+  error_default: "ထုတ်ဝေထားသော Sheet လင့်ခ်များကို စစ်ဆေးရန် လိုအပ်နိုင်သည် သို့မဟုတ် ချိတ်ဆက်မှု ပြတ်တောက်နိုင်သည်။",
+  error_retry: "ထပ်စမ်းရန်",
+  nav_overview: "ခြုံငုံသုံးသပ်ချက်", nav_bm: "ဌာနခွဲမန်နေဂျာ", nav_lo: "ကျွန်ုပ်၏ ချေးငွေစာရင်း (ချေးငွေအရာရှိ)", nav_cs: "ဖောက်သည်ဝန်ဆောင်မှု", nav_fc: "ကွင်းဆင်းကောက်ခံရေး",
+  navs_overview: "ခြုံငုံ", navs_bm: "ဌာနခွဲ", navs_lo: "ကိုယ်ပိုင်", navs_cs: "ဝန်ဆောင်မှု", navs_fc: "ကွင်းဆင်း",
+  section_product_mix: "ထုတ်ကုန်ရောနှော",
+  section_product_mix_desc: "ပက်ခွဲ (၁၅ရက်နှင့် ၃၀ရက်တွင် ပေးဆပ်ရမည်) နှင့် လစဉ် (၃၀ရက်တွင်သာ ပေးဆပ်ရမည်) နှိုင်းယှဉ်ချက်။",
+  th_product: "ထုတ်ကုန်", th_active_loans: "လက်ရှိချေးငွေများ", th_portfolio: "ချေးငွေစာရင်း", th_overdue_now: "လက်ရှိကျော်လွန်", th_chronic: "အကြာကြီးကျော်လွန်",
+  section_portfolio_branch: "ဌာနခွဲအလိုက် ချေးငွေစာရင်း",
+  section_trend: "ပက်ခွဲကောက်ခံနှုန်း လမ်းကြောင်း",
+  section_trend_desc: "ဆိုင်ကယ်တစ်ခုစီတွင် အချိန်မီပေးဆပ်သည့် ငွေပေးချေမှုအချိုး (ပက်ခွဲထုတ်ကုန် — ပိုကြီးပြီး ကြိမ်နှုန်းပိုများသော စာရင်း)။",
+  insight_overview_header: "AI အနှစ်ချုပ် — ချေးငွေစာရင်းတစ်ခုလုံး",
+  label_bw: "ပက်ခွဲ", label_mo: "လစဉ်",
+  toolbar_product: "ထုတ်ကုန်", seg_all: "အားလုံး",
+  section_branch_scorecard: "ဌာနခွဲ အမှတ်စာရင်း",
+  th_branch: "ဌာနခွဲ", th_active_portfolio: "လက်ရှိချေးငွေစာရင်း", th_collection_rate: "ကောက်ခံနှုန်း", th_chronic_misses: "အကြာကြီး (၂ကြိမ်ကျော်)",
+  section_rate_by_branch: "ဌာနခွဲအလိုက် ကောက်ခံနှုန်း", section_overdue_by_branch: "ဌာနခွဲအလိုက် ကျော်လွန်ငွေပမာဏ",
+  insight_bm_header: "AI အကြံပြုချက် — ဌာနခွဲမန်နေဂျာ",
+  toolbar_view: "ကြည့်ရှုမှု", select_all_officers: "— အရာရှိအားလုံး (အဆင့်စာရင်း) —",
+  section_leaderboard: "အရာရှိ စွမ်းဆောင်ရည် အဆင့်စာရင်း",
+  section_leaderboard_desc: "နောက်ဆုံးမှတ်တမ်းတင်ထားသော ဆိုင်ကယ်၏ ကောက်ခံနှုန်းအလိုက် အဆင့်သတ်မှတ်ထားသည်။ လက်ရှိချေးငွေ ၃ခုအောက်ရှိသော အရာရှိများကို ချန်လှပ်ထားသည်။ တစ်ဦးချင်း၏ ချေးငွေစာရင်းနှင့် အသိပေးချက်များကို ကြည့်ရန် အထက်ရှိအမည်ကို ရွေးပါ။",
+  th_loan_officer: "ချေးငွေအရာရှိ", th_overdue: "ကျော်လွန်",
+  section_rate_by_officer: "အရာရှိအလိုက် နှုန်း",
+  insight_lo_header: "AI အကြံပြုချက် — ချေးငွေအရာရှိ လမ်းညွှန်သင်ကြားမှု",
+  section_my_notifications: "ကျွန်ုပ်၏ အသိပေးချက်များ",
+  section_my_notifications_desc: "လက်ရှိကျော်လွန်နေသော သို့မဟုတ် ၁၅ရက်အတွင်း သက်တမ်းကုန်တော့မည့် သင့်စာရင်းရှိ ဖောက်သည်များ။",
+  kpi_my_active_loans: "ကျွန်ုပ်၏ လက်ရှိချေးငွေများ", kpi_my_active_portfolio: "ကျွန်ုပ်၏ လက်ရှိချေးငွေစာရင်း", kpi_my_overdue: "ကျွန်ုပ်၏ လက်ရှိကျော်လွန်မှု", kpi_my_rate: "ကျွန်ုပ်၏ ကောက်ခံနှုန်း",
+  kpi_active_portfolio: "လက်ရှိချေးငွေစာရင်း", kpi_latest_rate: "နောက်ဆုံးကောက်ခံနှုန်း", kpi_overdue: "လက်ရှိကျော်လွန်နေသည်",
+  kpi_chronic: "အကြာကြီး ကျော်လွန်သူများ", kpi_rollover: "ထပ်မံချေးငွေ အချိုး",
+  kpi_total_disbursed: "စုစုပေါင်း ထုတ်ချေးထားငွေ", kpi_closed_contracts: "ပြီးဆုံးထားသော စာချုပ်များ", kpi_avg_loan: "ပျမ်းမျှချေးငွေပမာဏ",
+  section_first_vs_rollover: "ပထမဆုံးချေးငွေ နှင့် ထပ်မံချေးငွေ", section_loan_cycle: "ချေးငွေဆိုင်ကယ် ဖြန့်ဝေမှု",
+  insight_cs_header: "AI အကြံပြုချက် — ဖောက်သည်ဝန်ဆောင်မှု",
+  kpi_overdue_period: "ဤကာလအတွင်း ကျော်လွန်မှု", kpi_maturing_15: "၁၅ရက်အတွင်း သက်တမ်းကုန်ဆုံးမည်", kpi_total_notifications: "အသိပေးချက် စုစုပေါင်း",
+  toolbar_branch: "ဌာနခွဲ", all_branches: "ဌာနခွဲအားလုံး", toolbar_type: "အမျိုးအစား",
+  seg_overdue: "ကျော်လွန်", seg_maturing: "မကြာမီသက်တမ်းကုန်", search_placeholder: "ဖောက်သည်၊ အရာရှိ၊ စာချုပ်နံပါတ် ရှာဖွေရန်…",
+  section_field_visit: "ကွင်းဆင်းလည်ပတ်ရမည့် စာရင်း", empty_no_cases: "ကိုက်ညီသော ကိစ္စမရှိပါ။",
+  insight_fc_header: "AI အကြံပြုချက် — ကွင်းဆင်းကောက်ခံရေး",
+  footer_note: '"Bi-weekly Collection All" နှင့် "Monthly Collection All" မှ တိုက်ရိုက်ရယူထားသည် · ကိန်းဂဏန်းများကို ဘတ်(100) အနီးဆုံးသို့ လုံးဝိုင်းထားသည်'
+}
+};
+
+function detectLang(){
+  const n = (navigator.language||'en').toLowerCase();
+  if(n.startsWith('th')) return 'th';
+  if(n.startsWith('my')) return 'my';
+  return 'en';
+}
+let LANG = detectLang();
+
+/* L(en, th, my) — pick the right pre-built string/value for the current language.
+   Used for dynamically-generated sentences (AI insights, KPI subtitles) where the
+   values are computed at render time rather than static UI chrome. */
+function L(en, th, my){ return LANG==='th' ? th : (LANG==='my' ? my : en); }
+
+function applyStaticI18n(){
+  const dict = TR[LANG];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.dataset.i18n;
+    if(dict[key]!==undefined) el.textContent = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    const key = el.dataset.i18nPlaceholder;
+    if(dict[key]!==undefined) el.placeholder = dict[key];
+  });
+  document.getElementById('htmlRoot').lang = LANG;
+  document.getElementById('bodyEl').dataset.lang = LANG;
+  document.querySelectorAll('#langSwitch button').forEach(b=> b.classList.toggle('active', b.dataset.langBtn===LANG));
+}
+
+document.querySelectorAll('#langSwitch button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    LANG = btn.dataset.langBtn;
+    applyStaticI18n();
+    if(DATA) renderAll();
+  });
+});
+applyStaticI18n(); // run once immediately so tab labels etc. show correctly before data loads
+
 /* ===================== LIVE DATA SOURCE ===================== */
 /* Paste the two "Publish to web -> CSV" links for the "Data" sheet of each workbook: */
 const BW_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-XruRD3ezUVheTz5BlnP6SB8Ck5Z5uaBOTShu2NZioP0drU4piwPJcjmeFqMS4cx1pKAc02R6Qr5D/pub?gid=0&single=true&output=csv";
@@ -582,7 +768,11 @@ async function boot(){
     console.error(e);
     document.getElementById('loadingScreen').style.display='none';
     document.getElementById('errorScreen').style.display='block';
-    document.getElementById('errorMsg').textContent = 'Details: ' + e.message + ' — check that both sheets are still published to web as CSV, and that the "Data" tab (not a different tab) was selected when publishing.';
+    document.getElementById('errorMsg').textContent = L(
+      'Details: ' + e.message + ' — check that both sheets are still published to web as CSV, and that the "Data" tab (not a different tab) was selected when publishing.',
+      'รายละเอียด: ' + e.message + ' — ตรวจสอบว่าชีตทั้งสองยังเผยแพร่เป็น CSV อยู่ และเลือกแท็บ "Data" ถูกต้องหรือไม่',
+      'အသေးစိတ်: ' + e.message + ' — Sheet နှစ်ခုစလုံးကို CSV အဖြစ် ဆက်လက်ထုတ်ဝေထားမှု ရှိမရှိနှင့် "Data" tab ကို မှန်ကန်စွာရွေးထားမှု ရှိမရှိ စစ်ဆေးပါ။'
+    );
   }
 }
 boot();
@@ -603,7 +793,7 @@ function safeChart(canvasId, config){
   try{
     if(typeof Chart === 'undefined'){
       const el = document.getElementById(canvasId);
-      if(el && el.parentElement) el.parentElement.insertAdjacentHTML('beforeend','<div class="empty-state" style="padding:16px">Chart library did not load — data tables below are unaffected.</div>');
+      if(el && el.parentElement) el.parentElement.insertAdjacentHTML('beforeend','<div class="empty-state" style="padding:16px">'+L('Chart library did not load — data tables below are unaffected.','ไลบรารีกราฟโหลดไม่สำเร็จ — ตารางข้อมูลด้านล่างยังใช้งานได้ตามปกติ','ဂရပ်ဖ် library ဖွင့်၍မရပါ — အောက်ပါဒေတာဇယားများ ထိခိုက်မှုမရှိပါ။')+'</div>');
       return null;
     }
     const el = document.getElementById(canvasId);
@@ -630,11 +820,11 @@ document.querySelectorAll('#tabs button, #bottomNav button').forEach(btn=>{
 /* ---- Add to Home Screen hint ---- */
 (function(){
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-  if(isStandalone) return; // already installed, no need to prompt
+  if(isStandalone) return;
   const ua = navigator.userAgent;
   const isIOS = /iPad|iPhone|iPod/.test(ua) || (ua.includes('Macintosh') && 'ontouchend' in document);
   const isAndroid = /Android/.test(ua);
-  if(!isIOS && !isAndroid) return; // desktop: skip the hint, not relevant
+  if(!isIOS && !isAndroid) return;
 
   const banner = document.getElementById('installBanner');
   const textEl = document.getElementById('installText');
@@ -642,18 +832,28 @@ document.querySelectorAll('#tabs button, #bottomNav button').forEach(btn=>{
   let deferredPrompt = null;
 
   if(isIOS){
-    textEl.innerHTML = 'Add this to your home screen: tap <b>Share</b> then <b>Add to Home Screen</b>.';
+    textEl.innerHTML = L(
+      'Add this to your home screen: tap <b>Share</b> then <b>Add to Home Screen</b>.',
+      'เพิ่มไปยังหน้าจอหลัก: แตะ <b>แชร์</b> แล้วเลือก <b>เพิ่มไปยังหน้าจอหลัก</b>',
+      'ပင်မစာမျက်နှာသို့ ထည့်ရန်: <b>မျှဝေရန်</b> ကိုနှိပ်ပြီး <b>ပင်မစာမျက်နှာသို့ ထည့်ရန်</b> ကိုရွေးပါ။'
+    );
     banner.classList.add('show');
   } else if(isAndroid){
-    textEl.innerHTML = 'Add this dashboard to your home screen for one-tap access.';
+    textEl.innerHTML = L('Add this dashboard to your home screen for one-tap access.','เพิ่มแดชบอร์ดนี้ไปยังหน้าจอหลักเพื่อเข้าถึงได้ในคลิกเดียว','တစ်ချက်တည်းနှိပ်ရန်အတွက် ဤဒက်ရှ်ဘုတ်ကို ပင်မစာမျက်နှာသို့ ထည့်ပါ။');
     window.addEventListener('beforeinstallprompt', (e)=>{
       e.preventDefault();
       deferredPrompt = e;
       goBtn.style.display = 'inline-block';
       banner.classList.add('show');
     });
-    // fallback text-only hint if the install prompt event never fires (e.g. criteria not met on a local file)
-    setTimeout(()=>{ if(!banner.classList.contains('show')){ textEl.innerHTML = 'Add this to your home screen: open the browser menu (⋮) and choose <b>Add to Home screen</b>.'; banner.classList.add('show'); } }, 2500);
+    setTimeout(()=>{ if(!banner.classList.contains('show')){
+      textEl.innerHTML = L(
+        'Add this to your home screen: open the browser menu (⋮) and choose <b>Add to Home screen</b>.',
+        'เพิ่มไปยังหน้าจอหลัก: เปิดเมนูเบราว์เซอร์ (⋮) แล้วเลือก <b>เพิ่มไปยังหน้าจอหลัก</b>',
+        'ပင်မစာမျက်နှာသို့ ထည့်ရန်: browser မီနူး (⋮) ကိုဖွင့်ပြီး <b>ပင်မစာမျက်နှာသို့ ထည့်ရန်</b> ကိုရွေးပါ။'
+      );
+      banner.classList.add('show');
+    } }, 2500);
     goBtn.addEventListener('click', async ()=>{
       if(!deferredPrompt) return;
       deferredPrompt.prompt();
@@ -667,26 +867,34 @@ document.querySelectorAll('#tabs button, #bottomNav button').forEach(btn=>{
 
 /* ===================== ALL DATA-DEPENDENT RENDERING ===================== */
 function renderAll(){
-/* header meta + staleness (must run after DATA is loaded) */
+const t = TR[LANG];
+
+/* header meta + staleness */
 document.getElementById('headerMeta').innerHTML =
-  `As of <b>${DATA.as_of}</b><br>${DATA.kpis_all.total_loans_ever.toLocaleString()} contracts across both products`;
+  L(`As of <b>${DATA.as_of}</b><br>${DATA.kpis_all.total_loans_ever.toLocaleString()} contracts across both products`,
+    `ข้อมูล ณ <b>${DATA.as_of}</b><br>${DATA.kpis_all.total_loans_ever.toLocaleString()} สัญญาจากทั้งสองผลิตภัณฑ์`,
+    `<b>${DATA.as_of}</b> အရ<br>ထုတ်ကုန်နှစ်မျိုးလုံးမှ စာချုပ် ${DATA.kpis_all.total_loans_ever.toLocaleString()} ခု`);
 const lastBw = DATA.trend_bw[DATA.trend_bw.length-1].period;
 const lastMo = DATA.trend_mo[DATA.trend_mo.length-1].period;
-document.getElementById('staleNote').innerHTML =
-  `Latest recorded cycle in the sheet — Bi-weekly: <b>${lastBw}</b>, Monthly: <b>${lastMo}</b>. If today's date is later than that, the next cycle simply hasn't been entered into the source system yet — this dashboard reflects the sheet as last pulled, not a live per-second feed.`;
+document.getElementById('staleNote').innerHTML = L(
+  `Latest recorded cycle in the sheet — Bi-weekly: <b>${lastBw}</b>, Monthly: <b>${lastMo}</b>. If today's date is later than that, the next cycle simply hasn't been entered into the source system yet — this dashboard reflects the sheet as last pulled, not a live per-second feed.`,
+  `รอบล่าสุดที่บันทึกในชีต — รายปักษ์: <b>${lastBw}</b>, รายเดือน: <b>${lastMo}</b> หากวันที่วันนี้ล่าช้ากว่านั้น แสดงว่ารอบถัดไปยังไม่ถูกบันทึกในระบบต้นทาง — แดชบอร์ดนี้แสดงข้อมูลตามที่ดึงล่าสุด ไม่ใช่แบบเรียลไทม์ทุกวินาที`,
+  `Sheet ရှိ နောက်ဆုံးမှတ်တမ်းတင်ထားသော ဆိုင်ကယ် — ပက်ခွဲ: <b>${lastBw}</b>၊ လစဉ်: <b>${lastMo}</b>။ ယနေ့ရက်စွဲသည် ယင်းထက်နောက်ကျပါက နောက်ဆိုင်ကယ်ကို source system တွင် မထည့်သွင်းရသေးခြင်းဖြစ်သည် — ဤဒက်ရှ်ဘုတ်သည် နောက်ဆုံးရယူထားသော Sheet ကိုသာ ပြသသည်၊ စက္ကန့်ချင်း အချက်အလက်မဟုတ်ပါ။`
+);
 
 /* ===================== OVERVIEW ===================== */
 const k = DATA.kpis_all;
 document.getElementById('ovKpis').innerHTML = `
-  <div class="kpi"><div class="label">Active portfolio</div><div class="value">${fmtTHB(k.active_portfolio)}</div><div class="sub">${k.active_loans.toLocaleString()} active loans</div></div>
-  <div class="kpi"><div class="label">Latest collection rate</div><div class="value">${DATA.trend_bw[DATA.trend_bw.length-1].collection_rate}%</div><div class="sub down">bi-weekly, ${lastBw}</div></div>
-  <div class="kpi"><div class="label">Currently overdue</div><div class="value">${fmtTHB(k.overdue_amount)}</div><div class="sub">${k.overdue_now} loans, both products</div></div>
-  <div class="kpi"><div class="label">Chronic delinquents</div><div class="value">${k.chronic_loans}</div><div class="sub">missed 2+ cycles</div></div>
-  <div class="kpi"><div class="label">Rollover share</div><div class="value">${k.rollover_share_pct}%</div><div class="sub">of all contracts ever</div></div>
+  <div class="kpi"><div class="label">${t.kpi_active_portfolio}</div><div class="value">${fmtTHB(k.active_portfolio)}</div><div class="sub">${L(`${k.active_loans.toLocaleString()} active loans`,`${k.active_loans.toLocaleString()} สินเชื่อที่ยังไม่ปิด`,`လက်ရှိချေးငွေ ${k.active_loans.toLocaleString()} ခု`)}</div></div>
+  <div class="kpi"><div class="label">${t.kpi_latest_rate}</div><div class="value">${DATA.trend_bw[DATA.trend_bw.length-1].collection_rate}%</div><div class="sub down">${L(`bi-weekly, ${lastBw}`,`รายปักษ์, ${lastBw}`,`ပက်ခွဲ, ${lastBw}`)}</div></div>
+  <div class="kpi"><div class="label">${t.kpi_overdue}</div><div class="value">${fmtTHB(k.overdue_amount)}</div><div class="sub">${L(`${k.overdue_now} loans, both products`,`${k.overdue_now} สินเชื่อ ทั้งสองผลิตภัณฑ์`,`ချေးငွေ ${k.overdue_now} ခု၊ ထုတ်ကုန်နှစ်မျိုးလုံး`)}</div></div>
+  <div class="kpi"><div class="label">${t.kpi_chronic}</div><div class="value">${k.chronic_loans}</div><div class="sub">${L('missed 2+ cycles','พลาดชำระ 2 รอบขึ้นไป','ဆိုင်ကယ် ၂ကြိမ်ကျော် ပျက်ကွက်')}</div></div>
+  <div class="kpi"><div class="label">${t.kpi_rollover}</div><div class="value">${k.rollover_share_pct}%</div><div class="sub">${L('of all contracts ever','จากสัญญาทั้งหมดที่เคยมี','စာချုပ်အားလုံးအနက်')}</div></div>
 `;
 
 const prodTbl = document.getElementById('productTable');
-[['Bi-weekly', DATA.kpis_bw],['Monthly', DATA.kpis_mo]].forEach(([name,pk])=>{
+prodTbl.innerHTML = '';
+[[t.label_bw, DATA.kpis_bw],[t.label_mo, DATA.kpis_mo]].forEach(([name,pk])=>{
   prodTbl.innerHTML += `<tr>
     <td class="name">${name}</td><td>${pk.active_loans.toLocaleString()}</td>
     <td>${fmtTHB(pk.active_portfolio)}</td><td>${pk.overdue_now}</td><td>${pk.chronic_loans}</td></tr>`;
@@ -710,10 +918,26 @@ safeChart('trendChart', {
 const mostOverdueBranch = [...DATA.branches_all].sort((a,b)=>b.overdue_amount-a.overdue_amount)[0];
 const bestBranch = [...DATA.branches_all].sort((a,b)=>b.collection_rate_latest-a.collection_rate_latest)[0];
 document.getElementById('ovInsights').innerHTML = `
-  <li><span class="tag">Trend</span>Bi-weekly collection rate is at <b>${DATA.trend_bw[DATA.trend_bw.length-1].collection_rate}%</b> as of ${lastBw}, down from ${DATA.trend_bw[0].collection_rate}% back in ${DATA.trend_bw[0].period} — the softening shows up clearly mid-way through the tracking window.</li>
-  <li><span class="tag act">Priority</span><b>${mostOverdueBranch.branch.replace('Samut Sakhon ','')}</b> carries the largest overdue amount right now (${fmtTHB(mostOverdueBranch.overdue_amount)} across ${mostOverdueBranch.overdue_count} loans) — first call on any additional collection resource.</li>
-  <li><span class="tag">Product mix</span>The Monthly product is still small (${DATA.kpis_mo.active_loans} active loans vs ${DATA.kpis_bw.active_loans} bi-weekly) but its overdue rate is proportionally lower — worth watching as it scales rather than assuming it will behave like the bi-weekly book.</li>
-  <li><span class="tag">Bright spot</span><b>${bestBranch.branch.replace('Samut Sakhon ','')}</b> has the best latest-cycle collection rate (${bestBranch.collection_rate_latest}%) of the three branches.</li>
+  <li><span class="tag">${L('Trend','แนวโน้ม','လမ်းကြောင်း')}</span>${L(
+    `Bi-weekly collection rate is at <b>${DATA.trend_bw[DATA.trend_bw.length-1].collection_rate}%</b> as of ${lastBw}, down from ${DATA.trend_bw[0].collection_rate}% back in ${DATA.trend_bw[0].period} — the softening shows up clearly mid-way through the tracking window.`,
+    `อัตราการเก็บเงินรายปักษ์อยู่ที่ <b>${DATA.trend_bw[DATA.trend_bw.length-1].collection_rate}%</b> ณ วันที่ ${lastBw} ลดลงจาก ${DATA.trend_bw[0].collection_rate}% ในช่วง ${DATA.trend_bw[0].period} — เห็นได้ชัดว่าเริ่มอ่อนตัวลงในช่วงกลางของการติดตาม`,
+    `ပက်ခွဲကောက်ခံနှုန်းသည် ${lastBw} အရ <b>${DATA.trend_bw[DATA.trend_bw.length-1].collection_rate}%</b> ဖြစ်ပြီး ${DATA.trend_bw[0].period} က ${DATA.trend_bw[0].collection_rate}% မှ ကျဆင်းလာသည် — ခြေရာခံကာလ၏ အလယ်ပိုင်းတွင် ကျဆင်းမှု ထင်ရှားစွာ တွေ့ရသည်။`
+  )}</li>
+  <li><span class="tag act">${L('Priority','ลำดับความสำคัญ','ဦးစားပေးအချက်')}</span>${L(
+    `<b>${mostOverdueBranch.branch.replace('Samut Sakhon ','')}</b> carries the largest overdue amount right now (${fmtTHB(mostOverdueBranch.overdue_amount)} across ${mostOverdueBranch.overdue_count} loans) — first call on any additional collection resource.`,
+    `<b>${mostOverdueBranch.branch.replace('Samut Sakhon ','')}</b> มียอดค้างชำระสูงสุดในตอนนี้ (${fmtTHB(mostOverdueBranch.overdue_amount)} จาก ${mostOverdueBranch.overdue_count} สินเชื่อ) — ควรได้รับทรัพยากรเก็บเงินเพิ่มเติมเป็นลำดับแรก`,
+    `<b>${mostOverdueBranch.branch.replace('Samut Sakhon ','')}</b> သည် လက်ရှိတွင် အကျော်လွန်ဆုံးဌာနခွဲဖြစ်သည် (ချေးငွေ ${mostOverdueBranch.overdue_count} ခုမှ ${fmtTHB(mostOverdueBranch.overdue_amount)}) — ကောက်ခံရေးအရင်းအမြစ် ထပ်ဆောင်းရရှိပါက ဦးစွာ ထည့်သွင်းစဉ်းစားရမည်။`
+  )}</li>
+  <li><span class="tag">${L('Product mix','สัดส่วนผลิตภัณฑ์','ထုတ်ကုန်ရောနှော')}</span>${L(
+    `The Monthly product is still small (${DATA.kpis_mo.active_loans} active loans vs ${DATA.kpis_bw.active_loans} bi-weekly) but its overdue rate is proportionally lower — worth watching as it scales rather than assuming it will behave like the bi-weekly book.`,
+    `ผลิตภัณฑ์รายเดือนยังมีขนาดเล็ก (${DATA.kpis_mo.active_loans} สินเชื่อ เทียบกับรายปักษ์ ${DATA.kpis_bw.active_loans} สินเชื่อ) แต่อัตราค้างชำระต่ำกว่าตามสัดส่วน — ควรจับตาดูเมื่อขยายขนาดขึ้น แทนที่จะสันนิษฐานว่าจะเหมือนพอร์ตรายปักษ์`,
+    `လစဉ်ထုတ်ကုန်သည် လက်ရှိအားနည်းနေသေးသည် (ချေးငွေ ${DATA.kpis_mo.active_loans} ခု ပက်ခွဲ ${DATA.kpis_bw.active_loans} ခုနှင့်နှိုင်းယှဉ်ပါက) သို့သော် ကျော်လွန်နှုန်းမှာ အချိုးအားဖြင့် နိမ့်သည် — ချဲ့ထွင်လာသည်နှင့်အမျှ စောင့်ကြည့်သင့်ပြီး ပက်ခွဲစာရင်းနှင့် တူမည်ဟု မယူဆသင့်ပါ။`
+  )}</li>
+  <li><span class="tag">${L('Bright spot','จุดเด่น','ထူးချွန်ချက်')}</span>${L(
+    `<b>${bestBranch.branch.replace('Samut Sakhon ','')}</b> has the best latest-cycle collection rate (${bestBranch.collection_rate_latest}%) of the three branches.`,
+    `<b>${bestBranch.branch.replace('Samut Sakhon ','')}</b> มีอัตราการเก็บเงินรอบล่าสุดดีที่สุดในสามสาขา (${bestBranch.collection_rate_latest}%)`,
+    `<b>${bestBranch.branch.replace('Samut Sakhon ','')}</b> သည် ဌာနခွဲသုံးခုအနက် နောက်ဆုံးဆိုင်ကယ် ကောက်ခံနှုန်းအကောင်းဆုံးဖြစ်သည် (${bestBranch.collection_rate_latest}%)။`
+  )}</li>
 `;
 
 /* ===================== BRANCH MANAGER ===================== */
@@ -746,9 +970,21 @@ function renderBranchTab(p){
   const worst = [...set].sort((a,b)=>a.collection_rate_latest-b.collection_rate_latest)[0];
   const best = [...set].sort((a,b)=>b.collection_rate_latest-a.collection_rate_latest)[0];
   document.getElementById('bmInsights').innerHTML = `
-    <li><span class="tag act">Focus</span><b>${worst.branch.replace('Samut Sakhon ','')}</b> has the weakest collection rate in this view (${worst.collection_rate_latest}%) with ${worst.chronic_count} chronic cases — review loan-officer caseload there before adding new disbursement targets.</li>
-    <li><span class="tag">Bright spot</span><b>${best.branch.replace('Samut Sakhon ','')}</b> leads at ${best.collection_rate_latest}% — worth a short debrief to see what collection routine differs, and whether it can be replicated elsewhere.</li>
-    <li><span class="tag">Scale check</span>Portfolio size varies noticeably across branches — always weigh the rate against ${fmtTHB(worst.portfolio)}–${fmtTHB(best.portfolio)} of active exposure before reallocating staff.</li>
+    <li><span class="tag act">${L('Focus','จุดที่ควรโฟกัส','အာရုံစိုက်ရန်')}</span>${L(
+      `<b>${worst.branch.replace('Samut Sakhon ','')}</b> has the weakest collection rate in this view (${worst.collection_rate_latest}%) with ${worst.chronic_count} chronic cases — review loan-officer caseload there before adding new disbursement targets.`,
+      `<b>${worst.branch.replace('Samut Sakhon ','')}</b> มีอัตราการเก็บเงินต่ำที่สุดในมุมมองนี้ (${worst.collection_rate_latest}%) โดยมีเคสค้างเรื้อรัง ${worst.chronic_count} ราย — ควรทบทวนภาระงานของเจ้าหน้าที่สินเชื่อก่อนตั้งเป้าปล่อยสินเชื่อใหม่`,
+      `<b>${worst.branch.replace('Samut Sakhon ','')}</b> သည် ဤမြင်ကွင်းတွင် အနုတ်ဆုံးကောက်ခံနှုန်းရှိသည် (${worst.collection_rate_latest}%)၊ အကြာကြီးကျော်လွန်မှု ${worst.chronic_count} ခုနှင့်တကွ — ချေးငွေထုတ်ချေးမှု ပစ်မှတ်အသစ်မတိုင်မီ ချေးငွေအရာရှိ၏ လုပ်ငန်းဝန်ကို ပြန်လည်သုံးသပ်ရန်။`
+    )}</li>
+    <li><span class="tag">${L('Bright spot','จุดเด่น','ထူးချွန်ချက်')}</span>${L(
+      `<b>${best.branch.replace('Samut Sakhon ','')}</b> leads at ${best.collection_rate_latest}% — worth a short debrief to see what collection routine differs, and whether it can be replicated elsewhere.`,
+      `<b>${best.branch.replace('Samut Sakhon ','')}</b> นำอยู่ที่ ${best.collection_rate_latest}% — ควรพูดคุยสั้นๆ เพื่อดูว่าขั้นตอนการเก็บเงินแตกต่างกันอย่างไร และสามารถนำไปใช้ที่อื่นได้หรือไม่`,
+      `<b>${best.branch.replace('Samut Sakhon ','')}</b> သည် ${best.collection_rate_latest}% ဖြင့် ဦးဆောင်နေသည် — ကောက်ခံရေးနည်းလမ်း မည်သို့ကွဲပြားသည်ကို တိုတိုတုတ်တုတ် ပြန်လည်သုံးသပ်ပြီး အခြားနေရာများတွင် ကျင့်သုံးနိုင်မလားစဉ်းစားရန်။`
+    )}</li>
+    <li><span class="tag">${L('Scale check','ตรวจสอบขนาด','ပမာဏစစ်ဆေးမှု')}</span>${L(
+      `Portfolio size varies noticeably across branches — always weigh the rate against ${fmtTHB(worst.portfolio)}–${fmtTHB(best.portfolio)} of active exposure before reallocating staff.`,
+      `ขนาดพอร์ตแตกต่างกันอย่างชัดเจนในแต่ละสาขา — ควรพิจารณาอัตราควบคู่กับความเสี่ยงที่ยังไม่ปิด ${fmtTHB(worst.portfolio)}–${fmtTHB(best.portfolio)} ก่อนโยกย้ายพนักงาน`,
+      `ဌာနခွဲအလိုက် ပမာဏ သိသိသာသာကွဲပြားသည် — ဝန်ထမ်းပြန်လည်ခွဲဝေမှုမပြုမီ လက်ရှိရင်းနှီးမှု ${fmtTHB(worst.portfolio)}–${fmtTHB(best.portfolio)} နှင့် နှုန်းကို အမြဲနှိုင်းယှဉ်စဉ်းစားရန်။`
+    )}</li>
   `;
 }
 document.querySelectorAll('#bmProductSeg button').forEach(b=>{
@@ -761,6 +997,7 @@ renderBranchTab('all');
 
 /* ===================== LOAN OFFICER ===================== */
 const loSelect = document.getElementById('loSelect');
+loSelect.innerHTML = `<option value="">${t.select_all_officers}</option>`;
 DATA.los_all.forEach(l=>{
   const opt = document.createElement('option'); opt.value=l.lo; opt.textContent = shortLO(l.lo)+' — '+l.branch.replace('Samut Sakhon ','');
   loSelect.appendChild(opt);
@@ -785,9 +1022,21 @@ function renderLeaderboard(){
   const sorted = [...DATA.los_all].sort((a,b)=>a.collection_rate-b.collection_rate);
   const low = sorted[0], high = sorted[sorted.length-1];
   document.getElementById('loInsights').innerHTML = `
-    <li><span class="tag act">Coach</span><b>${shortLO(low.lo)}</b> has the lowest collection rate in the province (${low.collection_rate}%, ${low.chronic_count} chronic cases) — worth a short caseload review to see whether specific clients or areas are driving it, especially if the active loan count (${low.active_loans}) is small.</li>
-    <li><span class="tag">Recognize</span><b>${shortLO(high.lo)}</b> leads at ${high.collection_rate}% across ${high.active_loans} active loans.</li>
-    <li><span class="tag">Workload</span>Portfolio size varies widely between officers — before comparing rates head-to-head, check whether low performers are carrying oversized or reassigned caseloads.</li>
+    <li><span class="tag act">${L('Coach','การโค้ช','လမ်းညွှန်ရန်')}</span>${L(
+      `<b>${shortLO(low.lo)}</b> has the lowest collection rate in the province (${low.collection_rate}%, ${low.chronic_count} chronic cases) — worth a short caseload review to see whether specific clients or areas are driving it, especially if the active loan count (${low.active_loans}) is small.`,
+      `<b>${shortLO(low.lo)}</b> มีอัตราการเก็บเงินต่ำที่สุดในจังหวัด (${low.collection_rate}%, เคสค้างเรื้อรัง ${low.chronic_count} ราย) — ควรทบทวนภาระงานสั้นๆ ว่ามีลูกค้าหรือพื้นที่ใดเป็นสาเหตุหลัก โดยเฉพาะหากจำนวนสินเชื่อที่ยังไม่ปิด (${low.active_loans}) มีน้อย`,
+      `<b>${shortLO(low.lo)}</b> သည် ခရိုင်တွင် ကောက်ခံနှုန်းအနိမ့်ဆုံးဖြစ်သည် (${low.collection_rate}%၊ အကြာကြီး ${low.chronic_count} ခု) — လက်ရှိချေးငွေအရေအတွက် (${low.active_loans}) နည်းပါက အထူးသဖြင့် မည်သည့်ဖောက်သည် သို့မဟုတ် ဒေသကြောင့်ဖြစ်သည်ကို ပြန်လည်သုံးသပ်သင့်သည်။`
+    )}</li>
+    <li><span class="tag">${L('Recognize','ยกย่อง','အသိအမှတ်ပြုရန်')}</span>${L(
+      `<b>${shortLO(high.lo)}</b> leads at ${high.collection_rate}% across ${high.active_loans} active loans.`,
+      `<b>${shortLO(high.lo)}</b> นำอยู่ที่ ${high.collection_rate}% จากสินเชื่อที่ยังไม่ปิด ${high.active_loans} รายการ`,
+      `<b>${shortLO(high.lo)}</b> သည် လက်ရှိချေးငွေ ${high.active_loans} ခုတွင် ${high.collection_rate}% ဖြင့် ဦးဆောင်နေသည်။`
+    )}</li>
+    <li><span class="tag">${L('Workload','ภาระงาน','လုပ်ငန်းဝန်')}</span>${L(
+      'Portfolio size varies widely between officers — before comparing rates head-to-head, check whether low performers are carrying oversized or reassigned caseloads.',
+      'ขนาดพอร์ตแตกต่างกันมากในแต่ละเจ้าหน้าที่ — ก่อนเปรียบเทียบอัตรากันโดยตรง ควรตรวจสอบว่าผู้ที่มีผลงานต่ำมีภาระงานมากเกินไปหรือเพิ่งได้รับมอบหมายใหม่หรือไม่',
+      'အရာရှိတစ်ဦးနှင့်တစ်ဦး ပမာဏ များစွာကွဲပြားသည် — နှုန်းများကို တိုက်ရိုက်နှိုင်းယှဉ်မီ စွမ်းဆောင်ရည်နိမ့်သူများသည် ပမာဏအလွန်ကြီးသော သို့မဟုတ် အသစ်လွှဲပြောင်းရရှိသော လုပ်ငန်းဝန်ရှိမရှိ စစ်ဆေးရန်။'
+    )}</li>
   `;
 }
 renderLeaderboard();
@@ -798,31 +1047,40 @@ function renderPersonal(loName){
   document.getElementById('loLeaderboardView').style.display='none';
   document.getElementById('loPersonalView').style.display='block';
   document.getElementById('loPersonalKpis').innerHTML = `
-    <div class="kpi"><div class="label">My active loans</div><div class="value">${l.active_loans}</div><div class="sub">${l.branch.replace('Samut Sakhon ','')}</div></div>
-    <div class="kpi"><div class="label">My active portfolio</div><div class="value">${fmtTHB(l.portfolio)}</div><div class="sub">disbursed all-time: ${fmtTHB(l.disbursed_alltime)}</div></div>
-    <div class="kpi"><div class="label">My overdue now</div><div class="value">${l.overdue_count}</div><div class="sub">${fmtTHB(l.overdue_amount)}</div></div>
-    <div class="kpi"><div class="label">My collection rate</div><div class="value">${l.collection_rate}%</div><div class="sub ${l.collection_rate>=93?'up':'down'}">${l.chronic_count} chronic cases</div></div>
+    <div class="kpi"><div class="label">${t.kpi_my_active_loans}</div><div class="value">${l.active_loans}</div><div class="sub">${l.branch.replace('Samut Sakhon ','')}</div></div>
+    <div class="kpi"><div class="label">${t.kpi_my_active_portfolio}</div><div class="value">${fmtTHB(l.portfolio)}</div><div class="sub">${L(`disbursed all-time: ${fmtTHB(l.disbursed_alltime)}`,`ปล่อยสินเชื่อสะสม: ${fmtTHB(l.disbursed_alltime)}`,`စုစုပေါင်းထုတ်ချေးထား: ${fmtTHB(l.disbursed_alltime)}`)}</div></div>
+    <div class="kpi"><div class="label">${t.kpi_my_overdue}</div><div class="value">${l.overdue_count}</div><div class="sub">${fmtTHB(l.overdue_amount)}</div></div>
+    <div class="kpi"><div class="label">${t.kpi_my_rate}</div><div class="value">${l.collection_rate}%</div><div class="sub ${l.collection_rate>=93?'up':'down'}">${L(`${l.chronic_count} chronic cases`,`เคสค้างเรื้อรัง ${l.chronic_count} ราย`,`အကြာကြီး ${l.chronic_count} ခု`)}</div></div>
   `;
   const items = DATA.roster.filter(r=>r.lo===loName).sort((a,b)=> (a.type==='overdue'?0:1) - (b.type==='overdue'?0:1) || b.notpaid_count-a.notpaid_count);
   const box = document.getElementById('loNotifications');
-  if(items.length===0){ box.innerHTML = `<div class="empty-state">No overdue or upcoming-maturity notifications right now — nice work, <b>${shortLO(loName)}</b>.</div>`; return; }
+  if(items.length===0){
+    box.innerHTML = `<div class="empty-state">${L(
+      `No overdue or upcoming-maturity notifications right now — nice work, <b>${shortLO(loName)}</b>.`,
+      `ไม่มีการแจ้งเตือนค้างชำระหรือใกล้ครบกำหนดตอนนี้ — เยี่ยมมาก คุณ<b>${shortLO(loName)}</b>`,
+      `လောလောဆယ် ကျော်လွန်နေသော သို့မဟုတ် သက်တမ်းနီးကပ်နေသော အသိပေးချက် မရှိပါ — ကောင်းမွန်စွာ ဆောင်ရွက်ထားပါသည်၊ <b>${shortLO(loName)}</b>။`
+    )}</div>`;
+    return;
+  }
   box.innerHTML = items.map(it=>`
     <div class="roster-row">
       <div class="roster-left">
-        <span class="cn">${it.client_name||'—'} <span class="pill ${it.type==='overdue'?'risk':'warn'}" style="margin-left:6px">${it.type==='overdue'?'Overdue · '+it.notpaid_count+'x missed':'Maturing '+it.loan_end_date}</span></span>
-        <span class="meta">${it.phone||'no phone'} · contract ${it.contract_no} · ${it.product}</span>
+        <span class="cn">${it.client_name||'—'} <span class="pill ${it.type==='overdue'?'risk':'warn'}" style="margin-left:6px">${it.type==='overdue'? L(`Overdue · ${it.notpaid_count}x missed`,`ค้างชำระ · พลาด ${it.notpaid_count} ครั้ง`,`ကျော်လွန် · ${it.notpaid_count} ကြိမ် ပျက်ကွက်`) : L(`Maturing ${it.loan_end_date}`,`ครบกำหนด ${it.loan_end_date}`,`သက်တမ်းကုန် ${it.loan_end_date}`)}</span></span>
+        <span class="meta">${it.phone||L('no phone','ไม่มีเบอร์โทร','ဖုန်းနံပါတ်မရှိ')} · ${L(`contract ${it.contract_no}`,`สัญญา ${it.contract_no}`,`စာချုပ် ${it.contract_no}`)} · ${it.product}</span>
       </div>
       <div class="roster-right">${fmtTHB(it.loan_amount)}</div>
     </div>`).join('');
 }
 loSelect.addEventListener('change', e=> renderPersonal(e.target.value));
+// re-apply personal view for currently selected officer (e.g. after a language switch)
+if(loSelect.value) renderPersonal(loSelect.value);
 
 /* ===================== CUSTOMER SERVICE ===================== */
 document.getElementById('csKpis').innerHTML = `
-  <div class="kpi"><div class="label">Rollover share</div><div class="value">${k.rollover_share_pct}%</div><div class="sub">of all contracts</div></div>
-  <div class="kpi"><div class="label">Total disbursed, all-time</div><div class="value">${fmtTHB(k.total_disbursed_alltime)}</div><div class="sub">${k.total_loans_ever.toLocaleString()} contracts</div></div>
-  <div class="kpi"><div class="label">Closed contracts</div><div class="value">${k.closed_loans.toLocaleString()}</div><div class="sub">${Math.round(100*k.closed_loans/k.total_loans_ever)}% of all loans issued</div></div>
-  <div class="kpi"><div class="label">Avg loan size</div><div class="value">${fmtTHB(k.avg_loan_size)}</div><div class="sub">across both products</div></div>
+  <div class="kpi"><div class="label">${t.kpi_rollover}</div><div class="value">${k.rollover_share_pct}%</div><div class="sub">${L('of all contracts','จากสัญญาทั้งหมด','စာချုပ်အားလုံးအနက်')}</div></div>
+  <div class="kpi"><div class="label">${t.kpi_total_disbursed}</div><div class="value">${fmtTHB(k.total_disbursed_alltime)}</div><div class="sub">${L(`${k.total_loans_ever.toLocaleString()} contracts`,`${k.total_loans_ever.toLocaleString()} สัญญา`,`စာချုပ် ${k.total_loans_ever.toLocaleString()} ခု`)}</div></div>
+  <div class="kpi"><div class="label">${t.kpi_closed_contracts}</div><div class="value">${k.closed_loans.toLocaleString()}</div><div class="sub">${L(`${Math.round(100*k.closed_loans/k.total_loans_ever)}% of all loans issued`,`${Math.round(100*k.closed_loans/k.total_loans_ever)}% ของสินเชื่อที่เคยปล่อยทั้งหมด`,`ထုတ်ချေးထားသမျှ၏ ${Math.round(100*k.closed_loans/k.total_loans_ever)}%`)}</div></div>
+  <div class="kpi"><div class="label">${t.kpi_avg_loan}</div><div class="value">${fmtTHB(k.avg_loan_size)}</div><div class="sub">${L('across both products','จากทั้งสองผลิตภัณฑ์','ထုတ်ကုန်နှစ်မျိုးလုံးတွင်')}</div></div>
 `;
 safeChart('rolloverChart', {
   type:'doughnut', data:{ labels: DATA.first_vs_rollover.map(f=>f['1st Loan vs Rollover']),
@@ -834,19 +1092,33 @@ safeChart('cycleChart', {
   options:{ plugins:{legend:{display:false}}, scales:{ y:{grid:{color:LINE}}, x:{grid:{display:false}, ticks:{font:{size:10}}} } }
 });
 document.getElementById('csInsights').innerHTML = `
-  <li><span class="tag">Retention</span>${k.rollover_share_pct}% of contracts are repeat clients — renewal experience matters more to future volume than acquiring new borrowers.</li>
-  <li><span class="tag act">Proactive outreach</span>With ${k.overdue_now} loans currently overdue and ${k.chronic_loans} flagged chronic, a same-day courtesy call at the first missed cycle is the highest-leverage touchpoint available.</li>
-  <li><span class="tag">Cycle mix</span>Loan cycle counts drop off after cycle 4 — worth understanding where clients typically stop renewing.</li>
+  <li><span class="tag">${L('Retention','การรักษาลูกค้า','ထိန်းသိမ်းမှု')}</span>${L(
+    `${k.rollover_share_pct}% of contracts are repeat clients — renewal experience matters more to future volume than acquiring new borrowers.`,
+    `${k.rollover_share_pct}% ของสัญญาเป็นลูกค้าเดิม — ประสบการณ์การต่อสัญญามีผลต่อยอดในอนาคตมากกว่าการหาลูกค้าใหม่`,
+    `စာချုပ်၏ ${k.rollover_share_pct}% သည် ထပ်ခါထပ်ခါ ချေးငွေယူသော ဖောက်သည်များဖြစ်သည် — သက်တမ်းတိုးအတွေ့အကြုံသည် ချေးငွေသစ်ရှာဖွေခြင်းထက် အနာဂတ်ပမာဏအတွက် ပိုအရေးကြီးသည်။`
+  )}</li>
+  <li><span class="tag act">${L('Proactive outreach','การติดต่อเชิงรุก','ကြိုတင်ဆက်သွယ်ရန်')}</span>${L(
+    `With ${k.overdue_now} loans currently overdue and ${k.chronic_loans} flagged chronic, a same-day courtesy call at the first missed cycle is the highest-leverage touchpoint available.`,
+    `ด้วยสินเชื่อค้างชำระ ${k.overdue_now} รายการ และเคสค้างเรื้อรัง ${k.chronic_loans} ราย การโทรแจ้งเตือนในวันเดียวกันเมื่อพลาดชำระครั้งแรกคือจุดที่ให้ผลลัพธ์ดีที่สุด`,
+    `လက်ရှိ ကျော်လွန်နေသော ချေးငွေ ${k.overdue_now} ခုနှင့် အကြာကြီး ${k.chronic_loans} ခုရှိရာ၊ ပထမဆုံးပျက်ကွက်သည့်နေ့တွင် ဖုန်းဆက်ခြင်းသည် အကျိုးအရှိဆုံး ချဉ်းကပ်နည်းဖြစ်သည်။`
+  )}</li>
+  <li><span class="tag">${L('Cycle mix','สัดส่วนรอบสินเชื่อ','ဆိုင်ကယ်ရောနှော')}</span>${L(
+    'Loan cycle counts drop off after cycle 4 — worth understanding where clients typically stop renewing.',
+    'จำนวนรอบสินเชื่อลดลงหลังรอบที่ 4 — ควรทำความเข้าใจว่าลูกค้ามักหยุดต่อสัญญาที่จุดใด',
+    'ချေးငွေဆိုင်ကယ်အရေအတွက်သည် ဆိုင်ကယ် ၄ ကြာပြီးနောက် ကျဆင်းသည် — ဖောက်သည်များ သက်တမ်းတိုးရပ်တန့်လေ့ရှိသည့်နေရာကို နားလည်ရန် အရေးကြီးသည်။'
+  )}</li>
 `;
 
 /* ===================== FIELD COLLECTION ===================== */
+const maturingCount = DATA.roster.filter(r=>r.type==='upcoming_maturity').length;
 document.getElementById('fcKpis').innerHTML = `
-  <div class="kpi"><div class="label">Overdue this period</div><div class="value">${k.overdue_now}</div><div class="sub">${fmtTHB(k.overdue_amount)}</div></div>
-  <div class="kpi"><div class="label">Chronic (2+ misses)</div><div class="value">${k.chronic_loans}</div><div class="sub">${fmtTHB(k.chronic_amount)}</div></div>
-  <div class="kpi"><div class="label">Maturing within 15 days</div><div class="value">${DATA.roster.filter(r=>r.type==='upcoming_maturity').length}</div><div class="sub">final installment reminders</div></div>
-  <div class="kpi"><div class="label">Total notifications</div><div class="value">${DATA.roster.length}</div><div class="sub">across all officers</div></div>
+  <div class="kpi"><div class="label">${t.kpi_overdue_period}</div><div class="value">${k.overdue_now}</div><div class="sub">${fmtTHB(k.overdue_amount)}</div></div>
+  <div class="kpi"><div class="label">${t.th_chronic_misses}</div><div class="value">${k.chronic_loans}</div><div class="sub">${fmtTHB(k.chronic_amount)}</div></div>
+  <div class="kpi"><div class="label">${t.kpi_maturing_15}</div><div class="value">${maturingCount}</div><div class="sub">${L('final installment reminders','แจ้งเตือนงวดสุดท้าย','နောက်ဆုံးအရစ်ကျ သတိပေးချက်')}</div></div>
+  <div class="kpi"><div class="label">${t.kpi_total_notifications}</div><div class="value">${DATA.roster.length}</div><div class="sub">${L('across all officers','ทุกเจ้าหน้าที่','အရာရှိအားလုံး')}</div></div>
 `;
 const fcBranchSelect = document.getElementById('fcBranchSelect');
+fcBranchSelect.innerHTML = `<option value="">${t.all_branches}</option>`;
 [...new Set(DATA.roster.map(r=>r.branch))].sort().forEach(b=>{
   const opt=document.createElement('option'); opt.value=b; opt.textContent=b.replace('Samut Sakhon ',''); fcBranchSelect.appendChild(opt);
 });
@@ -859,15 +1131,15 @@ function renderFC(){
   }
   items = items.sort((a,b)=> b.notpaid_count-a.notpaid_count);
   const box = document.getElementById('fcList');
-  if(items.length===0){ box.innerHTML = `<div class="empty-state">No matching cases.</div>`; return; }
+  if(items.length===0){ box.innerHTML = `<div class="empty-state">${t.empty_no_cases}</div>`; return; }
   box.innerHTML = items.slice(0,150).map(it=>`
     <div class="roster-row">
       <div class="roster-left">
-        <span class="cn">${it.client_name||'—'} <span class="pill ${it.type==='overdue'?'risk':'warn'}" style="margin-left:6px">${it.type==='overdue'?'Overdue · '+it.notpaid_count+'x':'Maturing '+it.loan_end_date}</span> <span class="pill prod">${it.product}</span></span>
-        <span class="meta">${it.phone||'no phone'} · contract ${it.contract_no} · officer ${shortLO(it.lo)} · ${it.branch.replace('Samut Sakhon ','')}</span>
+        <span class="cn">${it.client_name||'—'} <span class="pill ${it.type==='overdue'?'risk':'warn'}" style="margin-left:6px">${it.type==='overdue'? L(`Overdue · ${it.notpaid_count}x`,`ค้างชำระ · ${it.notpaid_count} ครั้ง`,`ကျော်လွန် · ${it.notpaid_count} ကြိမ်`) : L(`Maturing ${it.loan_end_date}`,`ครบกำหนด ${it.loan_end_date}`,`သက်တမ်းကုန် ${it.loan_end_date}`)}</span> <span class="pill prod">${it.product}</span></span>
+        <span class="meta">${it.phone||L('no phone','ไม่มีเบอร์โทร','ဖုန်းနံပါတ်မရှိ')} · ${L(`contract ${it.contract_no}`,`สัญญา ${it.contract_no}`,`စာချုပ် ${it.contract_no}`)} · ${L(`officer ${shortLO(it.lo)}`,`เจ้าหน้าที่ ${shortLO(it.lo)}`,`အရာရှိ ${shortLO(it.lo)}`)} · ${it.branch.replace('Samut Sakhon ','')}</span>
       </div>
       <div class="roster-right">${fmtTHB(it.loan_amount)}</div>
-    </div>`).join('') + (items.length>150 ? `<div class="empty-state">Showing first 150 of ${items.length} matches — narrow with branch/search.</div>` : '');
+    </div>`).join('') + (items.length>150 ? `<div class="empty-state">${L(`Showing first 150 of ${items.length} matches — narrow with branch/search.`,`แสดง 150 รายการแรกจากทั้งหมด ${items.length} รายการ — จำกัดผลด้วยสาขา/การค้นหา`,`ကိုက်ညီမှု ${items.length} ခုအနက် ပထမ ၁၅၀ ကို ပြသနေသည် — ဌာနခွဲ/ရှာဖွေမှုဖြင့် ကျဉ်းအောင်ပြုလုပ်ပါ။`)}</div>` : '');
 }
 document.querySelectorAll('#fcTypeSeg button').forEach(b=>{
   b.addEventListener('click',()=>{ document.querySelectorAll('#fcTypeSeg button').forEach(x=>x.classList.remove('active')); b.classList.add('active'); fcType=b.dataset.t; renderFC(); });
@@ -878,10 +1150,26 @@ renderFC();
 
 const branchWorstOverdue = [...DATA.branches_all].sort((a,b)=>b.overdue_amount-a.overdue_amount)[0];
 document.getElementById('fcInsights').innerHTML = `
-  <li><span class="tag act">Route priority</span><b>${branchWorstOverdue.branch.replace('Samut Sakhon ','')}</b> has the most overdue value right now (${fmtTHB(branchWorstOverdue.overdue_amount)}) — weight route planning here first when field capacity is limited.</li>
-  <li><span class="tag">Segment</span>Treat first-time misses and chronic (2+ miss) cases as different visit types: a reminder call for the former, a firmer in-person conversation and revised payment plan for the latter.</li>
-  <li><span class="tag act">Escalation rule</span>Flag any loan crossing 3 missed cycles for supervisor review before it heads toward write-off — earlier intervention costs far less than recovery after the fact.</li>
-  <li><span class="tag">Maturity reminders</span>${DATA.roster.filter(r=>r.type==='upcoming_maturity').length} loans are reaching their final installment within 15 days — a heads-up call before the due date reduces last-cycle misses.</li>
+  <li><span class="tag act">${L('Route priority','ลำดับเส้นทาง','လမ်းကြောင်းဦးစားပေး')}</span>${L(
+    `<b>${branchWorstOverdue.branch.replace('Samut Sakhon ','')}</b> has the most overdue value right now (${fmtTHB(branchWorstOverdue.overdue_amount)}) — weight route planning here first when field capacity is limited.`,
+    `<b>${branchWorstOverdue.branch.replace('Samut Sakhon ','')}</b> มียอดค้างชำระสูงสุดตอนนี้ (${fmtTHB(branchWorstOverdue.overdue_amount)}) — ควรวางแผนเส้นทางที่นี่ก่อนเมื่อกำลังคนภาคสนามมีจำกัด`,
+    `<b>${branchWorstOverdue.branch.replace('Samut Sakhon ','')}</b> သည် လက်ရှိ ကျော်လွန်ငွေပမာဏအများဆုံးဖြစ်သည် (${fmtTHB(branchWorstOverdue.overdue_amount)}) — ကွင်းဆင်းရေးအင်အား ကန့်သတ်ထားပါက ဤနေရာကို ဦးစွာ လမ်းကြောင်းစီစဉ်ရန်။`
+  )}</li>
+  <li><span class="tag">${L('Segment','การแบ่งกลุ่ม','အုပ်စုခွဲရန်')}</span>${L(
+    'Treat first-time misses and chronic (2+ miss) cases as different visit types: a reminder call for the former, a firmer in-person conversation and revised payment plan for the latter.',
+    'แยกประเภทการเยี่ยม: กรณีพลาดครั้งแรกใช้การโทรแจ้งเตือน ส่วนกรณีค้างเรื้อรัง (พลาด 2 ครั้งขึ้นไป) ใช้การพูดคุยแบบเข้มงวดพร้อมปรับแผนการชำระ',
+    'ပထမဆုံးအကြိမ် ပျက်ကွက်မှုနှင့် အကြာကြီး (၂ကြိမ်ကျော်) ကိစ္စများကို သီးခြားလည်ပတ်မှုအမျိုးအစားများအဖြစ် သတ်မှတ်ပါ — ပထမတစ်ခုအတွက် သတိပေးဖုန်းခေါ်ခြင်း၊ ဒုတိယအတွက် တွေ့ဆုံဆွေးနွေးမှုနှင့် ငွေပေးချေမှုအစီအစဉ် ပြင်ဆင်ခြင်း။'
+  )}</li>
+  <li><span class="tag act">${L('Escalation rule','กฎการยกระดับ','အဆင့်မြှင့်တင်ရန် စည်းမျဉ်း')}</span>${L(
+    'Flag any loan crossing 3 missed cycles for supervisor review before it heads toward write-off — earlier intervention costs far less than recovery after the fact.',
+    'ทำเครื่องหมายสินเชื่อที่พลาดชำระครบ 3 รอบเพื่อให้หัวหน้างานทบทวนก่อนเข้าสู่กระบวนการตัดหนี้สูญ — การเข้าแทรกแซงเร็วมีต้นทุนต่ำกว่าการติดตามทวงถามภายหลังมาก',
+    'ဆိုင်ကယ် ၃ ကြိမ်ကျော် ပျက်ကွက်သော ချေးငွေများကို write-off မဖြစ်မီ supervisor ပြန်လည်သုံးသပ်ရန် အမှတ်အသားပြုပါ — စောစီးစွာ ဝင်ရောက်ကြားဝင်ခြင်းသည် နောက်ပိုင်းပြန်လည်ရယူရန်ကုန်ကျစရိတ်ထက် သိသိသာသာ သက်သာသည်။'
+  )}</li>
+  <li><span class="tag">${L('Maturity reminders','แจ้งเตือนครบกำหนด','သက်တမ်းကုန် သတိပေးချက်')}</span>${L(
+    `${maturingCount} loans are reaching their final installment within 15 days — a heads-up call before the due date reduces last-cycle misses.`,
+    `สินเชื่อ ${maturingCount} รายการใกล้ถึงงวดสุดท้ายภายใน 15 วัน — การโทรแจ้งล่วงหน้าก่อนวันครบกำหนดช่วยลดการพลาดชำระในรอบสุดท้าย`,
+    `ချေးငွေ ${maturingCount} ခုသည် ၁၅ရက်အတွင်း နောက်ဆုံးအရစ်သို့ ရောက်ရှိတော့မည်ဖြစ်သည် — ကျမည့်ရက်မတိုင်မီ ကြိုတင်ဖုန်းခေါ်ခြင်းသည် နောက်ဆုံးဆိုင်ကယ် ပျက်ကွက်မှုကို လျှော့ချပေးသည်။`
+  )}</li>
 `;
 } // end renderAll()
 </script>
