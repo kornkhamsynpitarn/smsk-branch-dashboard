@@ -615,14 +615,6 @@ function safeChart(canvasId, config){
   }
 }
 
-/* header meta + staleness */
-document.getElementById('headerMeta').innerHTML =
-  `As of <b>${DATA.as_of}</b><br>${DATA.kpis_all.total_loans_ever.toLocaleString()} contracts across both products`;
-const lastBw = DATA.trend_bw[DATA.trend_bw.length-1].period;
-const lastMo = DATA.trend_mo[DATA.trend_mo.length-1].period;
-document.getElementById('staleNote').innerHTML =
-  `Latest recorded cycle in the sheet — Bi-weekly: <b>${lastBw}</b>, Monthly: <b>${lastMo}</b>. If today's date is later than that, the next cycle simply hasn't been entered into the source system yet — this dashboard reflects the sheet as last pulled, not a live per-second feed.`;
-
 /* ---- Tabs (top bar + bottom mobile nav, kept in sync) ---- */
 function switchTab(tabName){
   document.querySelectorAll('#tabs button, #bottomNav button').forEach(b=>b.classList.toggle('active', b.dataset.tab===tabName));
@@ -675,6 +667,14 @@ document.querySelectorAll('#tabs button, #bottomNav button').forEach(btn=>{
 
 /* ===================== ALL DATA-DEPENDENT RENDERING ===================== */
 function renderAll(){
+/* header meta + staleness (must run after DATA is loaded) */
+document.getElementById('headerMeta').innerHTML =
+  `As of <b>${DATA.as_of}</b><br>${DATA.kpis_all.total_loans_ever.toLocaleString()} contracts across both products`;
+const lastBw = DATA.trend_bw[DATA.trend_bw.length-1].period;
+const lastMo = DATA.trend_mo[DATA.trend_mo.length-1].period;
+document.getElementById('staleNote').innerHTML =
+  `Latest recorded cycle in the sheet — Bi-weekly: <b>${lastBw}</b>, Monthly: <b>${lastMo}</b>. If today's date is later than that, the next cycle simply hasn't been entered into the source system yet — this dashboard reflects the sheet as last pulled, not a live per-second feed.`;
+
 /* ===================== OVERVIEW ===================== */
 const k = DATA.kpis_all;
 document.getElementById('ovKpis').innerHTML = `
